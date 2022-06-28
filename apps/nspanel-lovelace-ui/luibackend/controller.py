@@ -223,7 +223,8 @@ class LuiController(object):
 
         if button_type == "number-set":
             if entity_id.startswith('fan'):
-                self._ha_api.get_entity(entity_id).call_service("set_percentage", percentage=value)
+                mapping = dict([(0, 0), (1, 33), (1, 33), (2, 66), (3, 100)])
+                self._ha_api.get_entity(entity_id).call_service("set_percentage", percentage=mapping.get(value, 0))
             else:
                 self._ha_api.get_entity(entity_id).call_service("set_value", value=value)
 
