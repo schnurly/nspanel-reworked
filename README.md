@@ -42,6 +42,8 @@ Some (not all) screenshots from the US Portrait Version:
 
 ![screens-us-p](doc-pics/screens-us-p.png)
 
+![screens-cardSolar](doc-pics/card-solar.png)
+
 ## Documentation
 
 Visit https://docs.nspanel.pky.eu/ for installation instructions and documentation of the configuration.
