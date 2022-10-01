@@ -26,6 +26,20 @@ class Nextion : Driver
     var last_per
 	var url
 
+    def set_power()
+        var ps = tasmota.get_power()
+        for i:0..1
+          if ps[i] == true
+            ps[i] = "on"
+          else 
+            ps[i] = "off"
+          end
+        end
+        var json_payload = 'powerbutton~' + ps[0] + '~' + ps[1] 
+        log('NSP: Switch state updated with ' + json_payload)
+        self.send(json_payload)
+      end  
+
     def split_55(b)
       var ret = []
       var s = size(b)   
@@ -370,3 +384,6 @@ end
 tasmota.add_cmd('Nextion', send_cmd)
 tasmota.add_cmd('CustomSend', send_cmd2)
 tasmota.add_cmd('FlashNextion', flash_nextion)
+
+tasmota.add_rule("power1#state", /-> nextion.set_power())
+tasmota.add_rule("power2#state", /-> nextion.set_power())

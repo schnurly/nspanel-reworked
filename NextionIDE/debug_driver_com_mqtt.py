@@ -10,9 +10,8 @@ from paho.mqtt import client as mqtt_client
 _comPort = serial.Serial('COM3',timeout=1)
 _mqttBroker = '192.168.2.100'
 _mqttPort = 1883
-_mqttPublishtopic = "nspanel/response"
-_mqttSubscribeTopic = "nspanel/receive"
-
+_mqttPublishtopic = "tele/tasmota_DEBUG/RESULT"
+_mqttSubscribeTopic = "cmnd/tasmota_DEBUG/nspsend"
 def BuildCRC16(data:bytes, poly:hex=0xA001) -> str:
     crc = 0xFFFF
     for b in data:
@@ -33,8 +32,11 @@ def SendToSerial(value):
     msg_crc = BuildCRC16(bytes_payload)
     crc=struct.pack('H', msg_crc)
     print("\n\n")
-    _comPort.write(bytes_payload + crc)
-    _comPort.flush()
+    try:
+      _comPort.write(bytes_payload + crc)
+      _comPort.flush()
+    except:
+        print("serial com exception")
     #sport.close()
 
 def ConnectToMqtt():   
