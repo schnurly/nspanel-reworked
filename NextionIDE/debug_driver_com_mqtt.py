@@ -11,7 +11,7 @@ _comPort = serial.Serial('COM3',timeout=1)
 _mqttBroker = '192.168.2.100'
 _mqttPort = 1883
 _mqttPublishtopic = "tele/tasmota_DEBUG/RESULT"
-_mqttSubscribeTopic = "cmnd/tasmota_DEBUG/nspsend"
+_mqttSubscribeTopic = "cmnd/tasmota_DEBUG/CzstomSend"
 def BuildCRC16(data:bytes, poly:hex=0xA001) -> str:
     crc = 0xFFFF
     for b in data:
