@@ -50,16 +50,18 @@ Show the current power flow from house to grid, battery and solar system
 ![screens-cardSolar](doc-pics/card-solar.png)
 
 Protocol:
+```
 entityUpd~test~~0~1010~0~1010~0
 <command>~<dummy>~<empty>~<BatteryChargePercent>~<Grid Power Usage>~<Solar Generator Power>~<House Consumption>~<Battery Generator Power>
-
+```
 ### WindowCard
 Shows the status of the house windows
 
 Protocol:
+```
 sysUpd~online~192.168.5.10
 sysUpd~offline~
-
+```
 ### SysPopup
 Allows to change the brightness settings, and shows system informations
 ![screens-sysPopup](doc-pics/sysPopup.PNG)
