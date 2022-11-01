@@ -7,11 +7,11 @@ import codecs
 import random
 from paho.mqtt import client as mqtt_client
 
-_comPort = serial.Serial('COM3',timeout=1)
+_comPort = serial.Serial('COM3',timeout=1,writeTimeout=1)
 _mqttBroker = '192.168.2.100'
 _mqttPort = 1883
 _mqttPublishtopic = "tele/tasmota_C851C0/RESULT"
-_mqttSubscribeTopic = "cmnd/tasmota_C851C0/CustomSend"
+_mqttSubscribeTopic = "cmnd/tasmota_C851C0_/CustomSend"
 def BuildCRC16(data:bytes, poly:hex=0xA001) -> str:
     crc = 0xFFFF
     for b in data:
@@ -80,7 +80,12 @@ def serial_data_received_handler(data,mqtt):
         PublishToMqtt(mqtt,"event,system,autowakeup")
     elif(data[0] == 0x55):
         endIndex = len(data)-2
-        PublishToMqtt(mqtt,data[4:endIndex])
+        strContent = data[4:endIndex].decode('utf-8')
+        PublishToMqtt(mqtt,strContent)
+        if(strContent == "event,cardLoaded,sysPopup"):
+            SendToSerial("sysUpd~online~192.168.5.10")
+
+
 
 
 def ReadFromSerialPort(ser,mqttclient):

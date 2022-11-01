@@ -42,8 +42,27 @@ Some (not all) screenshots from the US Portrait Version:
 
 ![screens-us-p](doc-pics/screens-us-p.png)
 
+
+## Fork Changes
+
+### SolarCard
+Show the current power flow from house to grid, battery and solar system
 ![screens-cardSolar](doc-pics/card-solar.png)
 
+Protocol:
+entityUpd~test~~0~1010~0~1010~0
+<command>~<dummy>~<empty>~<BatteryChargePercent>~<Grid Power Usage>~<Solar Generator Power>~<House Consumption>~<Battery Generator Power>
+
+### WindowCard
+Shows the status of the house windows
+
+Protocol:
+sysUpd~online~192.168.5.10
+sysUpd~offline~
+
+### SysPopup
+Allows to change the brightness settings, and shows system informations
+![screens-sysPopup](doc-pics/sysPopup.PNG)
 ## Documentation
 
 Visit https://docs.nspanel.pky.eu/ for installation instructions and documentation of the configuration.

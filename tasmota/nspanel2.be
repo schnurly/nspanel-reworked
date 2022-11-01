@@ -207,6 +207,13 @@ class Nextion : Driver
                             elif msg[0]==0x07 && size(msg)==1 # BELL/Buzzer
                                 tasmota.cmd("buzzer 1,1")
                             else
+                                if str(msg[0..-4])==event,cardLoaded,sysPopup
+                                   var wmap = tasmota.wifi    
+                                   var ip = wmap['ip']
+                                   var status = "online"
+                                   if ip == "" 
+                                      status = "offline"
+                                   self.send("sysUpd~"+status +"~" +ip)                                     
                                 var jm = string.format("{\"nextion\":\"%s\"}",str(msg[0..-4]))
                                 tasmota.publish_result(jm, "RESULT")        
                             end
