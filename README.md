@@ -1,67 +1,81 @@
-# NSPanel Lovelace UI
+# Fork Changes
+redesign of ui handling logic.
+ui logic will now handled in tasmota driver 
 
-If you like this project consider buying me a pizza 🍕 <a href="https://paypal.me/joBr99" target="_blank"><img src="https://img.shields.io/static/v1?logo=paypal&label=&message=donate&color=slategrey"></a>
+## Tasmota Driver
+used driver: ./tasmota/nspanel_logic.be
+The first hash map represents the physical mapping to nextion firmware elments
 
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg)](https://github.com/hacs/integration)
-![hacs validation](https://github.com/joBr99/nspanel-lovelace-ui/actions/workflows/hacs-validation.yaml/badge.svg)
-[![Man Hours](https://img.shields.io/endpoint?url=https%3A%2F%2Fmh.jessemillar.com%2Fhours%3Frepo%3Dhttps%3A%2F%2Fgithub.com%2FjoBr99%2Fnspanel-lovelace-ui.git)](https://jessemillar.com/r/man-hours)
+```
+   var widgetDefinition = {"$pageName"  : {
+           "components" : { "$internalID": ["$IDofNextionElement","$NameofNextionElement",$type]    
+      },
+           "syscomponents" : { "$internalID" : ["$IDofNextionElement","$NameofNextionElement",$type]
+         }
+    }
+```
 
-NsPanel Lovelace UI is a Firmware for the nextion screen inside of NSPanel in the Design of [HomeAssistant](https://www.home-assistant.io/)'s Lovelace UI Design.
-
-**EU Model and US Model supported (in portrait and landscape orientation)**
-
-Content of the screen is controlled by a AppDaemon Python Script installed on your HomeAssistant Instance.
-
-Or an TypeScript on your ioBroker Instance in case you are an ioBroker User.
-
-NsPanel needs to be flashed with Tasmota (or upcoming with ESPHome)
-
-![nspanel-rl](docs/img/nspanel-rl.png)
-
-## Features
-
-- Entities Page with support for cover, switch, input_boolean, binary_sensor, sensor, button, number, scenes, script, input_button and light, input_text (read-only), lock, fan and automation
-- Grid Page with support for cover, switch, input_boolean, button, scenes, light, lock and automation
-- Detail Pages for Lights (Brightness, Temperature and Color of the Light) and for Covers (Position)
-- Thermostat Page 
-- Media Player Card
-- Alarm Control Card
-- Screensaver Page with Time, Date and Weather Information
-- Card with QrCode to display WiFi Information
-- Localization possible (currently 38 languages)
-- **Everything is dynamically configurable by a yaml config, no need to code or touch Nextion Editor**
-
-It works with [Tasmota](https://tasmota.github.io/docs/) and MQTT. 
-To control the panel and update it with content from HomeAssistant there is an [AppDaemon](https://github.com/AppDaemon/appdaemon) App.
-
-See the following picture to get an idea of the look of this firmware for NSPanel.
-
-![screens](doc-pics/screens.png)
-
-Some (not all) screenshots from the US Portrait Version:
-
-![screens-us-p](doc-pics/screens-us-p.png)
-
-
-## Fork Changes
-
+```
+var widgetDefinition = {
+    "sysPopup"  : {
+           "components" : { "1": ["3","buttonClose",componentTypeButton],
+                            "2": ["9","txtIp",componentTypeText], 
+                            "3": ["2","sliderDim",componentTypeSlider]       
+      },
+           "syscomponents" : { "1" : ["12","tTime",componentTypeText],
+                               "2" : ["7","vaWifi",componentTypeIntVar] 
+         }
+    },
+    "cardSolar" :
+    {      
+       "components" : { "1": ["21","vaSolarPanel",componentTypeIntVar],
+                        "2": ["20","vaBattery",componentTypeIntVar], 
+                        "3": ["55","vaHouse",componentTypeIntVar],  
+                        "4": ["19","vaGrid",componentTypeIntVar],
+                        "5": ["26","vaBatteryChaS",componentTypeIntVar],                   
+                        "6": ["29","mSys",componentTypeHotspot], 
+                        "7": ["10","mRight",componentTypeHotspot],
+                        "8": ["53","mleft",componentTypeHotspot],        
+                      },
+        "syscomponents" : { "1" : ["61","tTime",componentTypeText],
+                            "2" : ["63","vaWifi",componentTypeIntVar],
+                            "3": ["47","txtNoData",componentTypeText],
+                    }
+    }    
+}
+```
+the second hash map represents the instances of the physical pages from the first map
+```
+var widget = {
+   "0" : {"page" : "sysPopup",
+          "backNav" : "",
+          "components" : {
+              "1" :{"visible" : "true","action":actionUsebackNav,"value" : "1"},
+              "2" :{"visible" : "true","value" :"0"},
+              "3" :{"visible" : "true","value" :"0"}
+          }
+   },
+   "1": {  "page" : "cardSolar",
+         "components": { 
+            "1": {"visible" : "true","mqttMappingName" : "powerSolar","value" :"0"},
+            "2": {"visible" : "true","mqttMappingName" : "powerBattery","value" :"0"},
+            "3": {"visible" : "true","mqttMappingName" : "powerHouse","value" :"0"},
+            "4": {"visible" : "true","mqttMappingName" : "powerGrid","value" :"0"},
+            "5": {"visible" : "true","mqttMappingName" : "batteryChargeState","value" :"0"},                        
+            "6": { "action" : actionShowPopup,"value" : "0",}
+         }         
+     }
+}
+```
 ### SolarCard
 Show the current power flow from house to grid, battery and solar system
 ![screens-cardSolar](doc-pics/card-solar.png)
 
-Protocol:
-```
-entityUpd~test~~0~1010~0~1010~0
-<command>~<dummy>~<empty>~<BatteryChargePercent>~<Grid Power Usage>~<Solar Generator Power>~<House Consumption>~<Battery Generator Power>
-```
+
 ### WindowCard
 Shows the status of the house windows
 
-Protocol:
-```
-sysUpd~online~192.168.5.10
-sysUpd~offline~
-```
+
 ### SysPopup
 Allows to change the brightness settings, and shows system informations
 ![screens-sysPopup](doc-pics/sysPopup.PNG)
