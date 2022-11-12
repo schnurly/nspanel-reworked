@@ -15,133 +15,35 @@ var mqtttopiccmnd = "cmnd/tasmota_C851C0"
 # wenn bei publish_result der subtopic funktionieren sollte kann das hier entfernt werden, 
 # ansonsten geht mir auch die info ab wie und ob der TOPIC in einer Globalenvariable versteckt ist, doku ist nichts zu findne.
 
-var componentTypeText = "Typetext"
-var componentTypeButton = "Typebutton"
-var componentTypeStateButton = "Typestatebutton"
-var componentTypeIntVar = "Typeintvar"
-var componentTypeHotspot = "Typehotspot"
-var componentTypeSlider = "Typeslider"
-var componentTypePic = "Typepic"
+var componentTypeText = 1
+var componentTypeButton = 2
+var componentTypeStateButton = 3
+var componentTypeIntVar = 4
+var componentTypeHotspot = 5
+var componentTypeSlider = 6
+var componentTypePic = 7
 
-var widgetDefinition = {
-    "sysPopup"  : {
-           "components" : { "1": ["3","buttonClose",componentTypeButton],
-                            "2": ["9","txtIp",componentTypeText], 
-                            "3": ["2","sliderDim",componentTypeSlider]       
-      },
-           "syscomponents" : { "1" : ["12","tTime",componentTypeText],
-                               "2" : ["7","vaWifi",componentTypeIntVar] 
-         }
-    },
-    "cardSolar" :
-    {      
-       "components" : { "1": ["21","vaSolarPanel",componentTypeIntVar],
-                        "2": ["20","vaBattery",componentTypeIntVar], 
-                        "3": ["55","vaHouse",componentTypeIntVar],  
-                        "4": ["19","vaGrid",componentTypeIntVar],
-                        "5": ["26","vaBatteryChaS",componentTypeIntVar],                   
-                        "6": ["29","mSys",componentTypeHotspot], 
-                        "7": ["10","mRight",componentTypeHotspot],
-                        "8": ["53","mleft",componentTypeHotspot],        
-                      },
-        "syscomponents" : { "1" : ["61","tTime",componentTypeText],
-                            "2" : ["63","vaWifi",componentTypeIntVar],
-                            "3": ["47","txtNoData",componentTypeText],
-                            "4": ["59","vaNoData",componentTypeIntVar],
-                    }
-    },
-    "cardWindow" :
-    {      
-       "components" : { "1": ["20","mSys",componentTypeHotspot], 
-                        "2": ["18","mRight",componentTypeHotspot],
-                        "3": ["43","mleft",componentTypeHotspot], 
-                        "4": ["24","p1",componentTypePic],
-                        "5": ["23","txtWindow1",componentTypeText],
-                        "6": ["25","p2",componentTypePic],
-                        "7": ["26","t0",componentTypeText],  
-                        "8": ["27","p3",componentTypePic],
-                        "9": ["28","t1",componentTypeText],  
-                        "10": ["29","p4",componentTypePic],
-                        "11": ["30","t2",componentTypeText],  
-                        "12": ["31","p5",componentTypePic],
-                        "13": ["32","t3",componentTypeText],  
-                        "14": ["33","p6",componentTypePic],
-                        "15": ["42","t8",componentTypeText],  
-                        "16": ["34","p7",componentTypePic],
-                        "17": ["41","t7",componentTypeText],  
-                        "18": ["35","p8",componentTypePic],
-                        "19": ["40","t6",componentTypeText],  
-                        "20": ["36","p9",componentTypePic],
-                        "21": ["39","t5",componentTypeText],
-                        "22": ["37","p10",componentTypePic],
-                        "23": ["38","t4",componentTypeText]
-                      },
-        "syscomponents" : { "1" : ["46","tTime",componentTypeText],
-                            "2" : ["47","vaWifi",componentTypeIntVar]
-                    }
-    }       
-}
+
+var actionUsebackNav = 1 # for popup pages
+var actionShowPopup = 2
+var actionShowPage = 3
+var actionRaiseEvent = 4
+
+var indexPageName = 0
+var indexBackNam = 1
+var indexComponents = 2
+var indexSysComponents = 3
 
 var sysComponentStore = {}
 
-var actionUsebackNav = "usebackNav" # for popup pages
-var actionShowPopup = "showPopup"
-var actionShowPage = "showPage"
-var actionRaiseEvent = "raiseEvent"
+var widget = {"0": ["sysPopup", "", [["3", "buttonClose", 2, 1, "1", 1, "", "", "", "", ""], ["9", "txtIp", 1, 1, "0", "", "", "", "", "", ""], ["2", "sliderDim", 6, 1, "0", "", "", "", "", "", ""]], [["12", "tTime", 1], ["7", "vaWifi", 4]]], "1": ["cardSolar", "", [["21", "vaSolarPanel", 4, 1, "0", "", "powerSolar", "", "", "", ""], ["20", "vaBattery", 4, 1, "0", "", "powerBattery", "", "", "", ""], ["55", "vaHouse", 4, 1, "0", "", "powerHouse", "", "", "", ""], ["19", "vaGrid", 4, 1, "0", "", "powerGrid", "", "", "", ""], ["26", "vaBatteryChaS", 4, 1, "0", "", "batteryChargeState", "", "", "", ""], ["29", "mSys", 5, "", "0", 2, "", "", "", "", ""], ["10", "mRight", 5, "", "2", 3, "", "", "", "", ""], ["49", "mleft", 5, "", "3", 3, "", "", "", "", ""]], [["61", "tTime", 1], ["63", "vaWifi", 4], ["47", "txtNoData", 1], ["59", "vaNoData", 4]]], "2": ["cardWindow", "", [["20", "mSys", 5, "", "0", 2, "", "", "", "", ""], ["18", "mRight", 5, "", "3", 3, "", "", "", "", ""], ["43", "mleft", 5, "", "1", 3, "", "", "", "", ""], ["24", "p1", 7, 1, "30", "", "T_WindowSleepingRoom_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["23", "txtWindow1", 1, 1, "Schlafzimmer", "", "", "", "", "", ""], ["25", "p2", 7, 1, "30", "", "T_WindowChild1Room_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["26", "t0", 1, 1, "Anja", "", "", "", "", "", ""], ["27", "p3", 7, 1, "30", "", "T_WindowChild2Room_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["28", "t1", 1, 1, "Benjamin", "", "", "", "", "", ""], ["29", "p4", 7, 1, "30", "", "T_WindowBath_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["30", "t2", 1, 1, "Bad", "", "", "", "", "", ""], ["31", "p5", 7, 1, "30", "", "T_WindowKitchen_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["32", "t3", 1, 1, "Kueche", "", "", "", "", "", ""], ["33", "p6", 7, 1, "30", "", "T_WindowWC_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["42", "t8", 1, 1, "Klo", "", "", "", "", "", ""], ["34", "p7", 7, 1, "30", "", "T_WindowLivingRoom_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["41", "t7", 1, 1, "Terrasse", "", "", "", "", "", ""], ["35", "p8", 7, 1, "30", "", "T_WindowDummy_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["40", "t6", 1, 1, "Haustuer", "", "", "", "", "", ""], ["36", "p9", 7, 1, "30", "", "T_WindowHobbyRoom1_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["39", "t5", 1, 1, "HobbyR", "", "", "", "", "", ""], ["37", "p10", 7, 1, "30", "", "T_WindowHobbyRoom2_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["38", "t4", 1, 1, "HobbyL", "", "", "", "", "", ""]], [["46", "tTime", 1], ["47", "vaWifi", 4]]], "3": ["cardGrid", "", [["38", "mSys", 5, "", "0", 2, "", "", "", "", ""], ["36", "mRight", 5, "", "1", 3, "", "", "", "", ""], ["39", "mleft", 5, "", "2", 3, "", "", "", "", ""], ["20", "bEntity1", 2, 1, "0", 4, "Power_Light_Tisch", "", "", {"1": "65504", "0": "65535"}, ""], ["3", "tEntity1", 1, 1, "Esstisch", "", "", "", "", "", ""], ["21", "bEntity2", 2, 1, "0", 4, "Power_Light_Ecke", "", "", {"1": "65504", "0": "65535"}, ""], ["22", "tEntity2", 1, 1, "Ecke", "", "", "", "", "", ""], ["23", "bEntity3", 2, 1, "0", 4, "Power_Light_Couch", "", "", {"1": "65504", "0": "65535"}, ""], ["24", "tEntity3", 1, 1, "Couch", "", "", "", "", "", ""], ["25", "bEntity4", 2, 1, "0", 4, "Power_Light_Wall", "", "", {"1": "65504", "0": "65535"}, ""], ["26", "tEntity4", 1, 1, "Wand", "", "", "", "", "", ""], ["28", "bEntity5", 2, 1, "0", 4, "Power_TV_Plug", "", "", "", {"1": "", "0": ""}], ["27", "tEntity5", 1, 1, "TV", "", "", "", "", "", ""], ["29", "bEntity6", 2, 1, "0", 4, "PowerOffAllWohnzimmer", "", "", {"0": "43072"}, ""], ["30", "tEntity6", 1, 1, "Power OFF ALL", "", "", "", "", "", ""]], [["41", "tTime", 1], ["43", "vaWifi", 4]]]}
 
-var widget = {
-   "0" : {"page" : "sysPopup",
-          "backNav" : "",
-          "components" : {
-              "1" :{"visible" : "true","action":actionUsebackNav,"value" : "1"},
-              "2" :{"visible" : "true","value" :"0"},
-              "3" :{"visible" : "true","value" :"0"}
-          }
-   },
-   "1": {  "page" : "cardSolar",
-         "components": { 
-            "1": {"visible" : "true","mqttMappingName" : "powerSolar","value" :"0"},
-            "2": {"visible" : "true","mqttMappingName" : "powerBattery","value" :"0"},
-            "3": {"visible" : "true","mqttMappingName" : "powerHouse","value" :"0"},
-            "4": {"visible" : "true","mqttMappingName" : "powerGrid","value" :"0"},
-            "5": {"visible" : "true","mqttMappingName" : "batteryChargeState","value" :"0"},                        
-            "6": { "action" : actionShowPopup,"value" : "0"},
-            "7": { "action" : actionShowPage,"value" : "2"},
-            "8": { "value" : "0"}
-         }         
-     },
-   "2": {  "page" : "cardWindow",
-         "components": { 
-            "1": { "action" : actionShowPopup,"value" : "0"},
-            "2": { "value" : ""},
-            "3": { "action" : actionShowPage, "value" : "1"},
-            "4": {"visible" : "true","mqttMappingName" : "window1State","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-            "5": {"visible" : "true","value" :"Schlafzimmer"},
-            "6": {"visible" : "true","mqttMappingName" : "window1State","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-            "7": {"visible" : "true","value" :"Anja"}, 
-            "8": {"visible" : "true","mqttMappingName" : "window1State","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-            "9": {"visible" : "true","value" :"Benjamin"},   
-            "10": {"visible" : "true","mqttMappingName" : "window1State","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-            "11": {"visible" : "true","value" :"Bad"},   
-            "12": {"visible" : "true","mqttMappingName" : "window1State","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-            "13": {"visible" : "true","value" :"Kueche"},   
-            "14": {"visible" : "true","mqttMappingName" : "window1State","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-            "15": {"visible" : "true","value" :"Klo"},   
-            "16": {"visible" : "false","mqttMappingName" : "window1State","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},            "17": {"visible" : "false","value" :"Terrasse"},   
-            "18": {"visible" : "false","mqttMappingName" : "window1State","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-            "19": {"visible" : "false","value" :"Haustuer"},   
-            "20": {"visible" : "false","mqttMappingName" : "window1State","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-            "21": {"visible" : "false","value" :"HobbyR"},   
-            "22": {"visible" : "false","mqttMappingName" : "window1State","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-            "23": {"visible" : "false","value" :"HobbyL"}       
-         }         
-     }
-}
+
 var _currentPageId = "1"
 var idleCount = 0
 
 def dlog(message)
-    if debug
+    if debug == true
         print(message)
     end
 end
@@ -167,17 +69,15 @@ class Nextion : Driver
 
     def set_power()
         import string
-        var ps = tasmota.get_power()
-        var cmd
+        var ps = tasmota.get_power()  
         for i:0..1
           if ps[i] == true
             self.sendnx(string.format("pic %d,290,buttonOnPicId",i*240))
           else 
             self.sendnx(string.format("pic %d,290,buttonOffPicId",i*240))
           end
-        end
-     
-      end  
+        end     
+    end  
 
     def split_55(b)
       var ret = []
@@ -229,8 +129,7 @@ class Nextion : Driver
     end
 
     def sendnx(payload)
-        import string
-        dlog("sendnx:"+payload)
+        import string        
         var payload_bin = self.encodenx(payload)
         self.ser.write(payload_bin)
         log(string.format("NXP: Nextion command sent = %s",str(payload_bin)), 3)       
@@ -267,8 +166,7 @@ class Nextion : Driver
 		#self.sendnx("recmod=1")		
     end
 
-    def write_block()
-        
+    def write_block()        
         import string
         log("FLH: Read block",3)
         while size(self.flash_buff)<self.flash_block_size && self.tcp.connected()
@@ -310,49 +208,73 @@ class Nextion : Driver
     end
     
     def change_page(pageId)    
-        import string 
+        import string         
+        dlog("change_page to " + pageId)
         _currentPageId = pageId
-        var pageToNav = widget[pageId]["page"]   
+        var pageToNav = widget[pageId][0] 
+     
         self.sendnx(string.format("page %s",pageToNav))
-        self.prepare_page(pageId)
+        self.init_current_page()
         print("do_defined_work_4")
         tasmota.publish(mqtttopic + "/PAGEEVENT",string.format("{\"pageId\":\"%s\"}",pageId))  
     end
 
-    def prepare_page(pageId)
-        import string
-        var cardName = widget[pageId]["page"]
-        print("prepare_page_1:" + cardName)
-        for id:widgetDefinition[cardName]["components"].keys()
-            print("prepare_page_2:" + id)
+    def init_current_page()
+        import string                 
+        dlog("prepare_page:" + _currentPageId)
+        for comp:widget[_currentPageId] [indexComponents]         
             var isVisible = "0"
-            if widget[pageId]["components"][id].contains("visible") 
-                isVisible = widget[pageId]["components"][id]["visible"] == "true" ? "1" : "0"
+            if comp[3] != "" 
+                isVisible = comp[3]
+            end           
+          
+            self.write_visibilty_to_component(comp[2],comp[1],isVisible)       
+            if comp[8] != ""
+                dlog("text is set")
+                self.write_text_to_component(comp[2],comp[1],comp[8])         
             end
-            var compType = widgetDefinition[cardName]["components"][id][2]
-            var compTypeNameIndex = 1
-            self.set_component_value(compType,widgetDefinition[cardName]["components"][id][compTypeNameIndex],widget[pageId]["components"][id]["value"])
-            self.set_component_visibilty(compType,widgetDefinition[cardName]["components"][id][compTypeNameIndex],isVisible)       
+          
+            self.update_component_value(comp[1],comp[4])
         end
-        for id:widgetDefinition[cardName]["syscomponents"].keys()
-            if sysComponentStore.contains(widgetDefinition[cardName]["syscomponents"][id][1]) 
-                self.set_component_value(widgetDefinition[cardName]["syscomponents"][id][2],widgetDefinition[cardName]["syscomponents"][id][1],sysComponentStore[widgetDefinition[cardName]["syscomponents"][id][1]] )
+        for compsys:widget[_currentPageId][indexSysComponents]  
+            if sysComponentStore.contains(compsys[1]) 
+                self.write_value_to_component(compsys[2],compsys[1],sysComponentStore[compsys[1]] )
             end
         end    
         self.set_power()
     end    
-    def set_component_visibilty(compType,compName,isVisible)
+    def write_visibilty_to_component(compType,compName,isVisible)    
         import string
+        
         if compType == componentTypeText                      
             self.sendnx(string.format("vis %s,%s",compName,isVisible))
+        elif compType== componentTypeButton                      
+            self.sendnx(string.format("vis %s,%s",compName,isVisible))        
         elif compType== componentTypeStateButton                      
-            self.sendnx(string.format("vis %s,%s",compName,isVisible))           
+            self.sendnx(string.format("vis %s,%s",compName,isVisible))     
         elif compType == componentTypePic            
             self.sendnx(string.format("vis %s,%s",compName,isVisible))            
         end
     end
-    def set_component_value(compType,compName,compValue)
+    def write_value_based_color_to_component(compName,value,mapping)       
+        import string        
+        if mapping.contains(value)
+            self.sendnx(string.format("%s.pco=%s",compName,mapping[value],value)) 
+        end
+    end
+    def write_text_to_component(compType,compName,compText)    
         import string
+        
+        if compType == componentTypeButton       
+            self.sendnx(string.format("%s.txt=\"%s\"",compName,compText))          
+        elif compType== componentTypeStateButton           
+            self.sendnx(string.format("%s.txt=\"%s\"",compName,compText))            
+        end
+    end
+
+    def write_value_to_component(compType,compName,compValue)     
+        import string
+        
         if compType == componentTypeText       
             self.sendnx(string.format("%s.txt=\"%s\"",compName,compValue))          
         elif compType== componentTypeStateButton           
@@ -365,107 +287,104 @@ class Nextion : Driver
     end
 
 
-    def do_defined_work(componentId)
-        import string
-        var page = widget[_currentPageId]
-        var componentIdIntern = "0"
-        for id:widgetDefinition[page["page"]]["components"].keys()     
-            if widgetDefinition[page["page"]]["components"][id][0] == componentId     
-                componentIdIntern = id
+    def handle_nextion_events(componentId)     
+        import string    
+        dlog("handle_nextion_events")        
+        for comps:widget[_currentPageId][indexComponents]    
+            if comps[0] == componentId
+                dlog(comps[4])
+                if comps[2] == componentTypeButton || comps[2] == componentTypeHotspot                    
+                    var action = comps[5]
+                    print(string.format("do action:%s",action))
+                    if action == actionShowPage
+                        self.change_page(comps[4])
+                    elif action == actionShowPopup
+                        dlog("page:" +_currentPageId)                       
+                        widget[comps[4]].setitem(indexBackNam,_currentPageId)
+                        self.change_page(comps[4])
+                        #_currentPageId = comps[4]
+                        #dlog("to page:" + comps[4])
+                        #var pageToNav=widget[comps[4]][indexPageName]      
+                        #self.sendnx(string.format("page %s",pageToNav))
+                        #self.prepare_page(comps[4])    
+                    elif action == actionUsebackNav
+                        self.change_page(widget[_currentPageId][indexBackNam])
+                    elif action == actionRaiseEvent
+                        tasmota.publish(mqtttopic +"/BUTTONEVENT",string.format("{\"pageId\":\"%s\", \"component\":\"%s\",\"event\":\"buttonPressed\"}",_currentPageId,comps[6]))
+                    end    
+                end
                 break
             end
-        end
-        if componentIdIntern != "0"
-            var componentDefinition = widgetDefinition[page["page"]]["components"][componentIdIntern]
-            var component = page["components"][componentIdIntern]
-            print("do_defined_work_1:"+componentIdIntern)
-            if componentDefinition[2] == componentTypeButton || componentDefinition[2] == componentTypeHotspot
-                print("do_defined_work_2")
-                if component.contains("action") && component["action"] != ""                
-                    var action = component["action"] 
-                    print("do action:"+action)
-                    if action == actionShowPage
-                        self.change_page(component["value"])
-                    elif action == actionShowPopup
-                        widget[component["value"]]["backNav"] = _currentPageId
-                        _currentPageId = component["value"]
-                        var pageToNav = widget[component["value"]]["page"]       
-                        self.sendnx(string.format("page %s",pageToNav))
-                        self.prepare_page(component["value"])    
-                    elif action == actionUsebackNav
-                        self.change_page(page["backNav"])
-                    elif action == actionRaiseEvent
-                        tasmota.publish(mqtttopic +"/BUTTONEVENT",string.format("{\"pageId\":\"%s\", \"component\":\"%s\",\"event\":\"buttonPressed\"}",_currentPageId,component["mqttMappingName"]))
-                    end    
-                end      
-            end
-         end
+        end               
+         
     end
         
-    def update_component_mqtt(pageId,name,value)
-        import string
-        var compDef = widgetDefinition[widget[pageId]["page"]]["components"]
-        var comp = widget[pageId]["components"]
-        for id:comp.keys()      
-            if comp[id].contains("mqttMappingName") && comp[id]["mqttMappingName"] == name        
-                if comp[id].contains("mqttValueMapping") 
-                    if comp[id]["mqttValueMapping"].contains(value)                     
-                        value = comp[id]["mqttValueMapping"][value]                    
+    def update_component_mqtt(pageId,name,value)     
+        dlog("update_component_mqtt" + pageId + ";" + name + ";" + value)                    
+        for comps:widget[_currentPageId][indexComponents]   
+            if comps[6] != "" #mqttMappin
+                if comps[6] == name     
+                    if comps[7] != ""
+                        if comps[7].contains(value)
+                            dlog("replace value " + value +" with " + comps[7][value])
+                            value = comps[7][value]
+                        end
+                    end                                  
+                    if _currentPageId == pageId
+                        self.update_component_value(comps[1],value)      
+                    else
+                        comps.setitem(4,value)
                     end
                 end
-                var compType = compDef[id][2]
-                comp[id]["value"] = value     
-                if _currentPageId == pageId
-                    self.set_component_value(compType,compDef[id][1],value)               
-                end
-                break
             end
-        end
+        end 
     end
     #used driver internally
-    def update_component(name,value)
-        import string        
-        var pageDef = widgetDefinition[widget[_currentPageId]["page"]]
-        var compDef = pageDef["components"]
-        for id:compDef.keys()
-            if compDef[id][1] == name
-                var compType = compDef[id][2]
-                widget[_currentPageId]["components"][id]["value"] = value
-                self.set_component_value(compType,name,value)              
+    def update_component_value(name,value)  
+        dlog("update_component_value")                     
+        for comps:widget[_currentPageId][indexComponents]   
+            if comps[1] == name
+                comps.setitem(4,value)
+                self.write_value_to_component(comps[2],name,value)  
+                if comps[9] != ""
+                    self.write_value_based_color_to_component(name,value,comps[9])
+                end     
+                if comps[10] != "" # valueBasedText
+                    if comps[10].contains(comps[4])
+                        self.write_text_to_component(comps[2],comps[1],comps[10][comps[4]])  
+                    end
+                end             
             end
-        end
+        end 
     end
 
-    def change_syscomponent_visibility(name,value)
-        import string
-        var pageName = widget[_currentPageId]["page"]
-        var sysComp = widgetDefinition[pageName]["syscomponents"]
-        for id:sysComp.keys()            
-            if sysComp[id][1] == name    
-                self.set_component_visibilty(sysComp[id][2],name,value)                          
+    def change_syscomponent_visibility(name,value) 
+        dlog("change_syscomponent_visibility")                       
+        for comps:widget[_currentPageId][indexSysComponents]   
+            if comps[1] == name
+                self.write_visibilty_to_component(comps[2],comps[1],value)             
             end
-        end
+        end 
     end
 
-    def update_syscomponent(name,value)
-        import string
-        var pageName = widget[_currentPageId]["page"]
-        var sysComp = widgetDefinition[pageName]["syscomponents"]
-        for id:sysComp.keys()
-            if sysComp[id][1] == name
-                var type = sysComp[id][2]
-                self.set_component_value(type,name,value)             
+    def update_syscomponent(name,value)      
+        dlog("update_syscomponent:" +name + ";" + value)                 
+        for comps:widget[_currentPageId][indexSysComponents]         
+            if comps[1] == name
+                self.write_value_to_component(comps[2],comps[1],value)             
             end
-        end
-        if !sysComponentStore.contains(name)
-            sysComponentStore.insert(name,value)
-        else
+        end 
+        dlog("update_syscomponent_end")
+        if sysComponentStore.contains(name)
             sysComponentStore[name] = value
+        else
+            sysComponentStore.insert(name,value)            
         end
     end
 
     
-    def interpret_mqtt_command(cmd, payload_json)
+    def handle_mqtt_command(cmd, payload_json)
+        dlog("handle_mqtt_command")
         var retVal = false
         if cmd == "UpdateContent" 
             idleCount=0             
@@ -478,6 +397,7 @@ class Nextion : Driver
     end
      
     def set_clock()
+        
         import string
         var now = tasmota.rtc()
         var time_raw = now['local']
@@ -487,24 +407,26 @@ class Nextion : Driver
     end
 
     def set_wifiStatus()
+        
         var wifi = tasmota.wifi()
         var value 
         if wifi.contains("ip")  && wifi["ip"] == ""
             value = 0
         else
             value = wifi["quality"]        
-            self.update_component("txtIp",wifi["ip"])            
+            self.update_component_value("txtIp",wifi["ip"])            
         end
         self.update_syscomponent("vaWifi",str(value))
     end
 
     def set_no_data()
+        
         if _currentPageId == 1 
             if idleCount == 0
-                #self.change_syscomponent_visibility("txtNoData",0)
+                self.change_syscomponent_visibility("txtNoData",0)
                 self.update_syscomponent("vaNoData","0")
             elif idleCount == 4
-                #self.change_syscomponent_visibility("txtNoData",1)
+                self.change_syscomponent_visibility("txtNoData",1)
                 self.update_syscomponent("vaNoData","1")
             end
             if idleCount<5
@@ -566,10 +488,10 @@ class Nextion : Driver
                                 compNextionId = str(msg[2])
                                 if msg[3] == 0x01 
                                     event = "press"
-                                    self.do_defined_work(compNextionId) 
+                                    self.handle_nextion_events(compNextionId) 
                                 else
                                     event = "release" 
-                                    self.do_defined_work(compNextionId) 
+                                    self.handle_nextion_events(compNextionId) 
                                 end
                             elif msg[0] == 0x55 && msg[1] == 0xbb #CustomCommand
                                 if msg[2] == 0x02 # wakup
@@ -686,17 +608,17 @@ class Nextion : Driver
     end
 
     def init()
+        import string
         log("NXP: Initializing Driver")
         self.ser = serial(17, 16, 115200, serial.SERIAL_8N1)
         self.flash_mode = 0
         tasmota.add_cron("*/15 * * * * *", /-> self.every_15_s(), "every_15_s")
+        self.change_page(_currentPageId)     
+        tasmota.publish(mqtttopic + "/DISPLAYEVENT",string.format("{\"pageId\":\"%s\", \"event\":\"wakeup\"}",_currentPageId))
     end
 
 end
 
-var nextion = Nextion()
-
-tasmota.add_driver(nextion)
 
 def get_current_version(cmd, idx, payload, payload_json)
 	import string
@@ -705,7 +627,6 @@ def get_current_version(cmd, idx, payload, payload_json)
 	tasmota.publish_result(jm, "RESULT")
 end
 
-tasmota.add_cmd('GetDriverVersion', get_current_version)
 
 def update_berry_driver(cmd, idx, payload, payload_json)
 	def task()
@@ -738,7 +659,7 @@ def update_berry_driver(cmd, idx, payload, payload_json)
 	tasmota.resp_cmnd_done()
 end
 
-tasmota.add_cmd('UpdateDriverVersion', update_berry_driver)
+var nextion = Nextion()
 
 def flash_nextion(cmd, idx, payload, payload_json)
     def task()
@@ -753,11 +674,6 @@ def send_cmd(cmd, idx, payload, payload_json)
     tasmota.resp_cmnd_done()
 end
 
-def send_cmd2(cmd, idx, payload, payload_json)
-    nextion.send(payload)
-    tasmota.resp_cmnd_done()
-end
-
 
 def send_mqtt(cmd, idx, payload_json, payload_binary)
     import json
@@ -765,19 +681,32 @@ def send_mqtt(cmd, idx, payload_json, payload_binary)
     if payload == nil
         return false
     else
-        nextion.interpret_mqtt_command("UpdateContent", payload)
+        nextion.handle_mqtt_command("UpdateContent", payload)
     end
     return true
 end
 
+
+
+
+log("add mqtt handler to GetDriverVersion")
+tasmota.add_cmd('GetDriverVersion', get_current_version)
+log("add mqtt handler to UpdateDriverVersion")
+tasmota.add_cmd('UpdateDriverVersion', update_berry_driver)
+
+log("add mqtt handler to Nextion")
 tasmota.add_cmd('Nextion', send_cmd)
-tasmota.add_cmd('CustomSend', send_cmd2)
+log("add mqtt handler to FlashNextion")
 tasmota.add_cmd('FlashNextion', flash_nextion)
 
 import mqtt
 #to avoid mqtt response message , mqtt.subscribe is used instead of add_cmd
+log("add mqtt handler to UpdateContent")
 mqtt.subscribe(mqtttopiccmnd + "/UpdateContent",send_mqtt)
 
-
+log("add rule handler to power1#state")
 tasmota.add_rule("power1#state", /-> nextion.set_power())
+log("add rule handler to power2#state")
 tasmota.add_rule("power2#state", /-> nextion.set_power())
+
+tasmota.add_driver(nextion) 
