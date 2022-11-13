@@ -8,7 +8,7 @@
 # FlashNextion http://ip-address-of-your-homeassistant:8123/local/nspanel.tft
 # FlashNextion http://nspanel.pky.eu/lui.tft
 
-var debug = true
+var debug = false
 
 var mqtttopic = "tele/tasmota_C851C0" 
 var mqtttopiccmnd = "cmnd/tasmota_C851C0" 
@@ -36,14 +36,14 @@ var indexSysComponents = 3
 
 var sysComponentStore = {}
 
-var widget = {"0": ["sysPopup", "", [["3", "buttonClose", 2, 1, "1", 1, "", "", "", "", ""], ["9", "txtIp", 1, 1, "0", "", "", "", "", "", ""], ["2", "sliderDim", 6, 1, "0", "", "", "", "", "", ""]], [["12", "tTime", 1], ["7", "vaWifi", 4]]], "1": ["cardSolar", "", [["21", "vaSolarPanel", 4, 1, "0", "", "powerSolar", "", "", "", ""], ["20", "vaBattery", 4, 1, "0", "", "powerBattery", "", "", "", ""], ["55", "vaHouse", 4, 1, "0", "", "powerHouse", "", "", "", ""], ["19", "vaGrid", 4, 1, "0", "", "powerGrid", "", "", "", ""], ["26", "vaBatteryChaS", 4, 1, "0", "", "batteryChargeState", "", "", "", ""], ["29", "mSys", 5, "", "0", 2, "", "", "", "", ""], ["10", "mRight", 5, "", "2", 3, "", "", "", "", ""], ["49", "mleft", 5, "", "3", 3, "", "", "", "", ""]], [["61", "tTime", 1], ["63", "vaWifi", 4], ["47", "txtNoData", 1], ["59", "vaNoData", 4]]], "2": ["cardWindow", "", [["20", "mSys", 5, "", "0", 2, "", "", "", "", ""], ["18", "mRight", 5, "", "3", 3, "", "", "", "", ""], ["43", "mleft", 5, "", "1", 3, "", "", "", "", ""], ["24", "p1", 7, 1, "30", "", "T_WindowSleepingRoom_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["23", "txtWindow1", 1, 1, "Schlafzimmer", "", "", "", "", "", ""], ["25", "p2", 7, 1, "30", "", "T_WindowChild1Room_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["26", "t0", 1, 1, "Anja", "", "", "", "", "", ""], ["27", "p3", 7, 1, "30", "", "T_WindowChild2Room_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["28", "t1", 1, 1, "Benjamin", "", "", "", "", "", ""], ["29", "p4", 7, 1, "30", "", "T_WindowBath_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["30", "t2", 1, 1, "Bad", "", "", "", "", "", ""], ["31", "p5", 7, 1, "30", "", "T_WindowKitchen_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["32", "t3", 1, 1, "Kueche", "", "", "", "", "", ""], ["33", "p6", 7, 1, "30", "", "T_WindowWC_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["42", "t8", 1, 1, "Klo", "", "", "", "", "", ""], ["34", "p7", 7, 1, "30", "", "T_WindowLivingRoom_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["41", "t7", 1, 1, "Terrasse", "", "", "", "", "", ""], ["35", "p8", 7, 1, "30", "", "T_WindowDummy_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["40", "t6", 1, 1, "Haustuer", "", "", "", "", "", ""], ["36", "p9", 7, 1, "30", "", "T_WindowHobbyRoom1_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["39", "t5", 1, 1, "HobbyR", "", "", "", "", "", ""], ["37", "p10", 7, 1, "30", "", "T_WindowHobbyRoom2_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["38", "t4", 1, 1, "HobbyL", "", "", "", "", "", ""]], [["46", "tTime", 1], ["47", "vaWifi", 4]]], "3": ["cardGrid", "", [["38", "mSys", 5, "", "0", 2, "", "", "", "", ""], ["36", "mRight", 5, "", "1", 3, "", "", "", "", ""], ["39", "mleft", 5, "", "2", 3, "", "", "", "", ""], ["20", "bEntity1", 2, 1, "0", 4, "Power_Light_Tisch", "", "", {"1": "65504", "0": "65535"}, ""], ["3", "tEntity1", 1, 1, "Esstisch", "", "", "", "", "", ""], ["21", "bEntity2", 2, 1, "0", 4, "Power_Light_Ecke", "", "", {"1": "65504", "0": "65535"}, ""], ["22", "tEntity2", 1, 1, "Ecke", "", "", "", "", "", ""], ["23", "bEntity3", 2, 1, "0", 4, "Power_Light_Couch", "", "", {"1": "65504", "0": "65535"}, ""], ["24", "tEntity3", 1, 1, "Couch", "", "", "", "", "", ""], ["25", "bEntity4", 2, 1, "0", 4, "Power_Light_Wall", "", "", {"1": "65504", "0": "65535"}, ""], ["26", "tEntity4", 1, 1, "Wand", "", "", "", "", "", ""], ["28", "bEntity5", 2, 1, "0", 4, "Power_TV_Plug", "", "", "", {"1": "", "0": ""}], ["27", "tEntity5", 1, 1, "TV", "", "", "", "", "", ""], ["29", "bEntity6", 2, 1, "0", 4, "PowerOffAllWohnzimmer", "", "", {"0": "43072"}, ""], ["30", "tEntity6", 1, 1, "Power OFF ALL", "", "", "", "", "", ""]], [["41", "tTime", 1], ["43", "vaWifi", 4]]]}
+var widget = {"0": ["sysPopup", "", [["3", "buttonClose", 2, 1, "1", 1, "", "", "", "", ""], ["9", "txtIp", 1, 1, "0", "", "", "", "", "", ""], ["2", "sliderDim", 6, 1, "0", "", "", "", "", "", ""]], [["12", "tTime", 1], ["7", "vaWifi", 4]]], "1": ["cardSolar", "", [["21", "vaSolarPanel", 4, 1, "0", "", "powerSolar", "", "", "", ""], ["20", "vaBattery", 4, 1, "0", "", "powerBattery", "", "", "", ""], ["55", "vaHouse", 4, 1, "0", "", "powerHouse", "", "", "", ""], ["19", "vaGrid", 4, 1, "0", "", "powerGrid", "", "", "", ""], ["26", "vaBatteryChaS", 4, 1, "0", "", "batteryChargeState", "", "", "", ""], ["29", "mSys", 5, "", "0", 2, "", "", "", "", ""], ["10", "mRight", 5, "", "2", 3, "", "", "", "", ""], ["49", "mleft", 5, "", "3", 3, "", "", "", "", ""]], [["61", "tTime", 1], ["63", "vaWifi", 4], ["47", "txtNoData", 1], ["59", "vaNoData", 4]]], "2": ["cardWindow", "", [["19", "mSys", 5, "", "0", 2, "", "", "", "", ""], ["47", "mRight", 5, "", "3", 3, "", "", "", "", ""], ["42", "mleft", 5, "", "1", 3, "", "", "", "", ""], ["23", "p1", 7, 1, "30", "", "T_WindowSleepingRoom_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["22", "txtWindow1", 1, 1, "Schlafzimmer", "", "", "", "", "", ""], ["24", "p2", 7, 1, "30", "", "T_WindowChild1Room_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["25", "t0", 1, 1, "Anja", "", "", "", "", "", ""], ["26", "p3", 7, 1, "30", "", "T_WindowChild2Room_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["27", "t1", 1, 1, "Benjamin", "", "", "", "", "", ""], ["28", "p4", 7, 1, "30", "", "T_WindowBath_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["29", "t2", 1, 1, "Bad", "", "", "", "", "", ""], ["30", "p5", 7, 1, "30", "", "T_WindowKitchen_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["31", "t3", 1, 1, "Kueche", "", "", "", "", "", ""], ["32", "p6", 7, 1, "30", "", "T_WindowWC_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["41", "t8", 1, 1, "Klo", "", "", "", "", "", ""], ["33", "p7", 7, 1, "30", "", "T_WindowLivingRoom_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["40", "t7", 1, 1, "Terrasse", "", "", "", "", "", ""], ["34", "p8", 7, 1, "30", "", "T_WindowDummy_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["39", "t6", 1, 1, "Haustuer", "", "", "", "", "", ""], ["35", "p9", 7, 1, "30", "", "T_WindowHobbyRoom1_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["38", "t5", 1, 1, "HobbyR", "", "", "", "", "", ""], ["36", "p10", 7, 1, "30", "", "T_WindowHobbyRoom2_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["37", "t4", 1, 1, "HobbyL", "", "", "", "", "", ""]], [["45", "tTime", 1], ["46", "vaWifi", 4]]], "3": ["cardGrid", "", [["38", "mSys", 5, "", "0", 2, "", "", "", "", ""], ["36", "mRight", 5, "", "1", 3, "", "", "", "", ""], ["39", "mleft", 5, "", "2", 3, "", "", "", "", ""], ["20", "bEntity1", 2, 1, "0", 4, "Power_Light_Tisch", {"ON": "1", "OFF": "0"}, "", {"1": "65504", "0": "65535"}, ""], ["3", "tEntity1", 1, 1, "Esstisch", "", "", "", "", "", ""], ["21", "bEntity2", 2, 1, "0", 4, "Power_Light_Ecke", {"ON": "1", "OFF": "0"}, "", {"1": "65504", "0": "65535"}, ""], ["22", "tEntity2", 1, 1, "Ecke", "", "", "", "", "", ""], ["23", "bEntity3", 2, 1, "0", 4, "Power_Light_Couch", {"ON": "1", "OFF": "0"}, "", {"1": "65504", "0": "65535"}, ""], ["24", "tEntity3", 1, 1, "Couch", "", "", "", "", "", ""], ["25", "bEntity4", 2, 1, "0", 4, "Power_Light_Wall", {"ON": "1", "OFF": "0"}, "", {"1": "65504", "0": "65535"}, ""], ["26", "tEntity4", 1, 1, "Wand", "", "", "", "", "", ""], ["28", "bEntity5", 2, 1, "0", 4, "Power_TV_Plug", {"ON": "1", "OFF": "0"}, "", "", {"1": "", "0": ""}], ["27", "tEntity5", 1, 1, "TV", "", "", "", "", "", ""], ["29", "bEntity6", 2, 1, "0", 4, "PowerOffAllWohnzimmer", "", "", {"0": "43072"}, ""], ["30", "tEntity6", 1, 1, "Power OFF ALL", "", "", "", "", "", ""]], [["41", "tTime", 1], ["43", "vaWifi", 4]]]}
 
 
 var _currentPageId = "1"
 var idleCount = 0
 
 def dlog(message)
-    if debug == true
+    if debug 
         print(message)
     end
 end
@@ -69,6 +69,9 @@ class Nextion : Driver
 
     def set_power()
         import string
+        if (self.flash_mode==1)
+            return
+        end
         var ps = tasmota.get_power()  
         for i:0..1
           if ps[i] == true
@@ -130,6 +133,7 @@ class Nextion : Driver
 
     def sendnx(payload)
         import string        
+        dlog("sendnx:"+ payload)
         var payload_bin = self.encodenx(payload)
         self.ser.write(payload_bin)
         log(string.format("NXP: Nextion command sent = %s",str(payload_bin)), 3)       
@@ -208,6 +212,9 @@ class Nextion : Driver
     end
     
     def change_page(pageId)    
+        if (self.flash_mode==1)
+            return
+        end
         import string         
         dlog("change_page to " + pageId)
         _currentPageId = pageId
@@ -245,7 +252,9 @@ class Nextion : Driver
     end    
     def write_visibilty_to_component(compType,compName,isVisible)    
         import string
-        
+        if (self.flash_mode==1)
+            return
+        end
         if compType == componentTypeText                      
             self.sendnx(string.format("vis %s,%s",compName,isVisible))
         elif compType== componentTypeButton                      
@@ -258,13 +267,18 @@ class Nextion : Driver
     end
     def write_value_based_color_to_component(compName,value,mapping)       
         import string        
+        if (self.flash_mode==1)
+            return
+        end
         if mapping.contains(value)
             self.sendnx(string.format("%s.pco=%s",compName,mapping[value],value)) 
         end
     end
     def write_text_to_component(compType,compName,compText)    
         import string
-        
+        if (self.flash_mode==1)
+            return
+        end
         if compType == componentTypeButton       
             self.sendnx(string.format("%s.txt=\"%s\"",compName,compText))          
         elif compType== componentTypeStateButton           
@@ -274,7 +288,9 @@ class Nextion : Driver
 
     def write_value_to_component(compType,compName,compValue)     
         import string
-        
+        if (self.flash_mode==1)
+            return
+        end
         if compType == componentTypeText       
             self.sendnx(string.format("%s.txt=\"%s\"",compName,compValue))          
         elif compType== componentTypeStateButton           
@@ -287,7 +303,7 @@ class Nextion : Driver
     end
 
 
-    def handle_nextion_events(componentId)     
+    def handle_nextion_events(componentId,eventType)     
         import string    
         dlog("handle_nextion_events")        
         for comps:widget[_currentPageId][indexComponents]    
@@ -310,7 +326,7 @@ class Nextion : Driver
                     elif action == actionUsebackNav
                         self.change_page(widget[_currentPageId][indexBackNam])
                     elif action == actionRaiseEvent
-                        tasmota.publish(mqtttopic +"/BUTTONEVENT",string.format("{\"pageId\":\"%s\", \"component\":\"%s\",\"event\":\"buttonPressed\"}",_currentPageId,comps[6]))
+                        tasmota.publish(mqtttopic +"/BUTTONEVENT",string.format("{\"pageId\":\"%s\", \"component\":\"%s\",\"event\":\"%s\"}",_currentPageId,comps[6],eventType))
                     end    
                 end
                 break
@@ -483,15 +499,13 @@ class Nextion : Driver
                                 print("serial touch event" +str(msg[0])+" "+str(msg[1])+" "+str(msg[2])+" "+str(msg[3]))
                                 var pageNextionId  
                                 var compNextionId
-                                var event
+                              
                                 pageNextionId = str(msg[1])
                                 compNextionId = str(msg[2])
-                                if msg[3] == 0x01 
-                                    event = "press"
-                                    self.handle_nextion_events(compNextionId) 
-                                else
-                                    event = "release" 
-                                    self.handle_nextion_events(compNextionId) 
+                                if msg[3] == 0x01                              
+                                    self.handle_nextion_events(compNextionId,"pressed") 
+                                else 
+                                    self.handle_nextion_events(compNextionId,"released") 
                                 end
                             elif msg[0] == 0x55 && msg[1] == 0xbb #CustomCommand
                                 if msg[2] == 0x02 # wakup
@@ -670,6 +684,9 @@ def flash_nextion(cmd, idx, payload, payload_json)
 end
 
 def send_cmd(cmd, idx, payload, payload_json)
+    if (nextion.flash_mode==1)
+        return
+    end
     nextion.sendnx(payload)
     tasmota.resp_cmnd_done()
 end
@@ -698,6 +715,7 @@ log("add mqtt handler to Nextion")
 tasmota.add_cmd('Nextion', send_cmd)
 log("add mqtt handler to FlashNextion")
 tasmota.add_cmd('FlashNextion', flash_nextion)
+
 
 import mqtt
 #to avoid mqtt response message , mqtt.subscribe is used instead of add_cmd
