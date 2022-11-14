@@ -91,7 +91,8 @@ widgetDefinition = {
                         "12": ["28","bEntity5",componentTypeButton],
                         "13": ["27","tEntity5",componentTypeText],   
                         "14": ["29","bEntity6",componentTypeButton],
-                        "15": ["30","tEntity6",componentTypeText]           
+                        "15": ["30","tEntity6",componentTypeText],
+                        "16": ["2","tHeading",componentTypeText]
                       },
         "syscomponents" : { "1" : ["41","tTime",componentTypeText],
                             "2" : ["43","vaWifi",componentTypeIntVar]
@@ -168,7 +169,8 @@ widget = {
            "12": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_TV_Plug","mqttValueMapping":{"ON":"1","OFF":"0"},"valueBasedText":{"1":symbolPowerPlug,0:symbolPowerPlugOff}},   
            "13": {"visible" : "true","value" :"TV"}, 
            "14": { "action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "PowerOffAllWohnzimmer","text":symbolPower,"valueBasedColor":{"0":"43072"}},   
-           "15": {"visible" : "true","value" :"Power OFF ALL"}
+           "15": {"visible" : "true","value" :"Power OFF ALL"},
+           "16": {"visible" : "true","value" :"Wohnzimmer"
         }         
         
     }

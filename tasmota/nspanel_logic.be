@@ -38,7 +38,7 @@ var sysComponentStore = {}
 
 var widget = {"0": ["sysPopup", "", [["3", "buttonClose", 2, 1, "1", 1, "", "", "", "", ""], ["9", "txtIp", 1, 1, "0", "", "", "", "", "", ""], ["2", "sliderDim", 6, 1, "0", "", "", "", "", "", ""]], [["12", "tTime", 1], ["7", "vaWifi", 4]]], "1": ["cardSolar", "", [["21", "vaSolarPanel", 4, 1, "0", "", "powerSolar", "", "", "", ""], ["20", "vaBattery", 4, 1, "0", "", "powerBattery", "", "", "", ""], ["55", "vaHouse", 4, 1, "0", "", "powerHouse", "", "", "", ""], ["19", "vaGrid", 4, 1, "0", "", "powerGrid", "", "", "", ""], ["26", "vaBatteryChaS", 4, 1, "0", "", "batteryChargeState", "", "", "", ""], ["29", "mSys", 5, "", "0", 2, "", "", "", "", ""], ["10", "mRight", 5, "", "2", 3, "", "", "", "", ""], ["49", "mleft", 5, "", "3", 3, "", "", "", "", ""]], [["61", "tTime", 1], ["63", "vaWifi", 4], ["47", "txtNoData", 1], ["59", "vaNoData", 4]]], "2": ["cardWindow", "", [["19", "mSys", 5, "", "0", 2, "", "", "", "", ""], ["47", "mRight", 5, "", "3", 3, "", "", "", "", ""], ["42", "mleft", 5, "", "1", 3, "", "", "", "", ""], ["23", "p1", 7, 1, "30", "", "T_WindowSleepingRoom_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["22", "txtWindow1", 1, 1, "Schlafzimmer", "", "", "", "", "", ""], ["24", "p2", 7, 1, "30", "", "T_WindowChild1Room_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["25", "t0", 1, 1, "Anja", "", "", "", "", "", ""], ["26", "p3", 7, 1, "30", "", "T_WindowChild2Room_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["27", "t1", 1, 1, "Benjamin", "", "", "", "", "", ""], ["28", "p4", 7, 1, "30", "", "T_WindowBath_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["29", "t2", 1, 1, "Bad", "", "", "", "", "", ""], ["30", "p5", 7, 1, "30", "", "T_WindowKitchen_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["31", "t3", 1, 1, "Kueche", "", "", "", "", "", ""], ["32", "p6", 7, 1, "30", "", "T_WindowWC_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["41", "t8", 1, 1, "Klo", "", "", "", "", "", ""], ["33", "p7", 7, 1, "30", "", "T_WindowLivingRoom_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["40", "t7", 1, 1, "Terrasse", "", "", "", "", "", ""], ["34", "p8", 7, 1, "30", "", "T_WindowDummy_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["39", "t6", 1, 1, "Haustuer", "", "", "", "", "", ""], ["35", "p9", 7, 1, "30", "", "T_WindowHobbyRoom1_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["38", "t5", 1, 1, "HobbyR", "", "", "", "", "", ""], ["36", "p10", 7, 1, "30", "", "T_WindowHobbyRoom2_IsOpen", {"OPEN": "31", "CLOSED": "30"}, "", "", ""], ["37", "t4", 1, 1, "HobbyL", "", "", "", "", "", ""]], [["45", "tTime", 1], ["46", "vaWifi", 4]]], "3": ["cardGrid", "", [["38", "mSys", 5, "", "0", 2, "", "", "", "", ""], ["36", "mRight", 5, "", "1", 3, "", "", "", "", ""], ["39", "mleft", 5, "", "2", 3, "", "", "", "", ""], ["20", "bEntity1", 2, 1, "0", 4, "Power_Light_Tisch", {"ON": "1", "OFF": "0"}, "", {"1": "65504", "0": "65535"}, ""], ["3", "tEntity1", 1, 1, "Esstisch", "", "", "", "", "", ""], ["21", "bEntity2", 2, 1, "0", 4, "Power_Light_Ecke", {"ON": "1", "OFF": "0"}, "", {"1": "65504", "0": "65535"}, ""], ["22", "tEntity2", 1, 1, "Ecke", "", "", "", "", "", ""], ["23", "bEntity3", 2, 1, "0", 4, "Power_Light_Couch", {"ON": "1", "OFF": "0"}, "", {"1": "65504", "0": "65535"}, ""], ["24", "tEntity3", 1, 1, "Couch", "", "", "", "", "", ""], ["25", "bEntity4", 2, 1, "0", 4, "Power_Light_Wall", {"ON": "1", "OFF": "0"}, "", {"1": "65504", "0": "65535"}, ""], ["26", "tEntity4", 1, 1, "Wand", "", "", "", "", "", ""], ["28", "bEntity5", 2, 1, "0", 4, "Power_TV_Plug", {"ON": "1", "OFF": "0"}, "", "", {"1": "", "0": ""}], ["27", "tEntity5", 1, 1, "TV", "", "", "", "", "", ""], ["29", "bEntity6", 2, 1, "0", 4, "PowerOffAllWohnzimmer", "", "", {"0": "43072"}, ""], ["30", "tEntity6", 1, 1, "Power OFF ALL", "", "", "", "", "", ""]], [["41", "tTime", 1], ["43", "vaWifi", 4]]]}
 
-
+var isSleeping = 0
 var _currentPageId = "1"
 var idleCount = 0
 
@@ -337,7 +337,7 @@ class Nextion : Driver
         
     def update_component_mqtt(pageId,name,value)     
         dlog("update_component_mqtt" + pageId + ";" + name + ";" + value)                    
-        for comps:widget[_currentPageId][indexComponents]   
+        for comps:widget[pageId][indexComponents]   
             if comps[6] != "" #mqttMappin
                 if comps[6] == name     
                     if comps[7] != ""
@@ -495,22 +495,34 @@ class Nextion : Driver
                         if size(msg) > 0
                             if msg == bytes('000000FFFFFF88FFFFFF')
                                 self.screeninit()
-                            elif msg[0] == 0x65 # touchPressEventCmd
+                            elif msg[0] == 0x65  # touchPressEventCmd
                                 print("serial touch event" +str(msg[0])+" "+str(msg[1])+" "+str(msg[2])+" "+str(msg[3]))
                                 var pageNextionId  
                                 var compNextionId
                               
                                 pageNextionId = str(msg[1])
                                 compNextionId = str(msg[2])
-                                if msg[3] == 0x01                              
-                                    self.handle_nextion_events(compNextionId,"pressed") 
-                                else 
-                                    self.handle_nextion_events(compNextionId,"released") 
-                                end
-                            elif msg[0] == 0x55 && msg[1] == 0xbb #CustomCommand
-                                if msg[2] == 0x02 # wakup
+                              
+                                if isSleeping == 0
+                                    if msg[3] == 0x01                              
+                                        self.handle_nextion_events(compNextionId,"pressed") 
+                                    else 
+                                        self.handle_nextion_events(compNextionId,"released") 
+                                    end
+                                else
+                                    if msg[3] == 0x00 # button released
+                                        self.sendnx("dim=dimValueNormal")
+                                        isSleeping = 0 
+                                        tasmota.publish(mqtttopic + "/DISPLAYEVENT",string.format("{\"pageId\":\"%s\", \"event\":\"wakeup\"}",_currentPageId))
+                                     end 
+                                end 
+                                
+                            elif (msg[0] == 0x55 && msg[1] == 0xbb)  #CustomCommand                           
+                                if msg[2] == 0x02  # wakup
+                                    isSleeping = 0 
                                     tasmota.publish(mqtttopic + "/DISPLAYEVENT",string.format("{\"pageId\":\"%s\", \"event\":\"wakeup\"}",_currentPageId))
                                 elif msg[2] == 0x01 # sleep
+                                    isSleeping = 1
                                     tasmota.publish(mqtttopic + "/DISPLAYEVENT",string.format("{\"pageId\":\"%s\", \"event\":\"sleep\"}",_currentPageId))
                                 end    
                             elif msg[0]==0x07 && size(msg)==1 # BELL/Buzzer
