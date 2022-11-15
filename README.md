@@ -80,11 +80,11 @@ Show the current power flow from house to grid, battery and solar system
 
 ### WindowCard
 Shows the status of the house windows
-![screens-cardWindow](doc-pics/card-window.png
+![screens-cardWindow](doc-pics/card-window.png)
 
 ### PopupVacuum
 Control Panel for Vacuum cleaner
-![screens-popupVacuum](doc-pics/popupVacuum.png
+![screens-popupVacuum](doc-pics/popupVacuum.png)
 
 ### SysPopup
 Allows to change the brightness settings, and shows system informations
