@@ -17,6 +17,11 @@ symbolPowerPlugOff = ""
 symbolPower = ""
 symbolLamp = ""
 symbolFloorLamp = ""
+symbolRobotVacuum = ""
+symbolBroom = ""
+symbolFlash = ""
+symbolCloudQuestion = ""
+
 
 widgetDefinition = {
     "sysPopup"  : {
@@ -97,7 +102,28 @@ widgetDefinition = {
         "syscomponents" : { "1" : ["41","tTime",componentTypeText],
                             "2" : ["43","vaWifi",componentTypeIntVar]
                     }
-    }       
+    },
+    "popupVacuum" :
+    {      
+       "components" : {                  
+                        "1": ["2","buttonClose",componentTypeButton],
+                        "2": ["3","tHeader",componentTypeText], 
+                        "3": ["12","tStatusSymbol",componentTypeText],
+                        "4": ["16","tStatusText",componentTypeText],
+                        "5": ["9","bZone1",componentTypeButton],
+                        "6": ["19","tZone1",componentTypeText], 
+                        "7": ["17","bZone2",componentTypeButton],
+                        "8": ["20","tZone2",componentTypeText],
+                        "9": ["18","bZone3",componentTypeButton],
+                        "10": ["21","tZone3",componentTypeText],
+                        "11": ["13","bPause",componentTypeButton],
+                        "12": ["14","bDock",componentTypeButton]
+                     
+                      },
+        "syscomponents" : { "1" : ["7","tTime",componentTypeText],
+                            "2" : ["4","vaWifi",componentTypeIntVar]
+                    }
+    }     
 }
 
 
@@ -121,7 +147,7 @@ widget = {
            "5": {"visible" : "true","mqttMappingName" : "batteryChargeState","value" :"0"},                        
            "6": { "action" : actionShowPopup,"value" : "0"},
            "7": { "action" : actionShowPage,"value" : "2"},
-           "8": { "action" : actionShowPage,"value" : "3"}
+           "8": { "action" : actionShowPage,"value" : "4"}
         }         
     },
     "2": {
@@ -156,7 +182,7 @@ widget = {
         "page" : "cardGrid",
         "components": {                      
            "1": { "action" : actionShowPopup,"value" : "0"},
-           "2": { "action" : actionShowPage,"value" : "1"},
+           "2": { "action" : actionShowPage,"value" : "4"},
            "3": { "action" : actionShowPage,"value" : "2"},
            "4": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Tisch","mqttValueMapping":{"ON":"1","OFF":"0"},"text":symbolLight,"valueBasedColor":{"1":"65504","0":"65535"}},   
            "5": {"visible" : "true","value" :"Esstisch"},  
@@ -170,9 +196,70 @@ widget = {
            "13": {"visible" : "true","value" :"TV"}, 
            "14": { "action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "PowerOffAllWohnzimmer","text":symbolPower,"valueBasedColor":{"0":"43072"}},   
            "15": {"visible" : "true","value" :"Power OFF ALL"},
-           "16": {"visible" : "true","value" :"Wohnzimmer"
+           "16": {"visible" : "true","value" :"Wohnzimmer"}
         }         
         
+    },  
+    "4": { 
+        "page" : "cardGrid",
+        "components": {                      
+           "1": { "action" : actionShowPopup,"value" : "0"},
+           "2": { "action" : actionShowPage,"value" : "1"},
+           "3": { "action" : actionShowPage,"value" : "3"},
+           "4": {"action":actionShowPopup, "visible":"true","value":"5","valueBasedColor":{"5":"1304"},"text":symbolRobotVacuum},   
+           "5": {"visible" : "true","value" :"Dobby"},  
+           "6": {"visible" : "false","value" :""}, 
+           "7": {"visible" : "false","value" :""},
+           "8": {"action":actionShowPopup, "visible":"true","value":"6","valueBasedColor":{"6":"1304"},"text":symbolRobotVacuum},   
+           "9": {"visible" : "true","value" :"Winky"},
+           "10": {"visible" : "false","value" :""},   
+           "11": {"visible" : "false","value" :""},
+           "12": {"visible" : "false","value" :""},   
+           "13": {"visible" : "false","value" :""}, 
+           "14": { "visible" : "false","value" :""},   
+           "15": {"visible" : "false","value" :""},
+           "16": {"visible" : "true","value" :"Staubsauger"}
+        }                 
+    },     
+    "5": { 
+        "page" : "popupVacuum",
+        "backNav" : "",
+        "components": {                      
+           "1" :{"visible" : "true","action":actionUsebackNav,"value" : ""},
+           "2": {"visible" : "true","value" :"Dobby"},  
+           "3": {"visible" : "true","value" :"Offline", "valueBasedText":{"Charging":symbolFlash,"Cleaning":symbolBroom,"Offline":symbolCloudQuestion}},
+           "4": {"visible" : "true","value" :""},   
+           "5": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Alles","value" :""}, 
+           "6": {"visible" : "true","value" :"Alles"},   
+           "7": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Flur","value" :""}, 
+           "8": {"visible" : "true","value" :"Flur"},   
+           "9": {"visible" : "false","value" :""}, 
+           "10": {"visible" : "false","value" :""},   
+           "11": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Pause","value" :""}, 
+           "12": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Dock","value" :""}   
+           
+    
+        }                 
+    },
+    "6": { 
+        "page" : "popupVacuum",
+        "backNav" : "",
+        "components": {                      
+           "1" :{"visible" : "true","action":actionUsebackNav,"value" : ""},
+           "2": {"visible" : "true","value" :"Winky"},  
+           "3": {"visible" : "true","value" :"Offline", "valueBasedText":{"Charging":symbolFlash,"Cleaning":symbolBroom,"Offline":symbolCloudQuestion}},
+           "4": {"visible" : "true","value" :""},   
+           "5": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Winky_Clean_Alles","value" :""}, 
+           "6": {"visible" : "true","value" :"Alles"},   
+           "7": {"visible" : "false","value" :""}, 
+           "8": {"visible" : "false","value" :""},   
+           "9": {"visible" : "false","value" :""}, 
+           "10": {"visible" : "false","value" :""},   
+           "11": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Pause","value" :""}, 
+           "12": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Dock","value" :""}   
+           
+    
+        }                 
     }
  }
 
