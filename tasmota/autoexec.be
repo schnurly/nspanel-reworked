@@ -1,1 +1,2 @@
-load("nspanel2.be")
+load("widget.be")
+load("nspanel_logic.be")
