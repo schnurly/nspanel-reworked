@@ -4,7 +4,13 @@ ui logic will now handled in tasmota driver
 
 ## Tasmota Driver
 used driver: ./tasmota/nspanel_logic.be
-The first hash map represents the physical mapping to nextion firmware elments
+
+GenerateWidgetJson.py
+
+Mapping of pages is defined here, and generate a json map for the widget variable in the nspanel_logic.be
+Variable widgetDefinition is direct mapping to the the hmi defined pages elements, etc..
+Variable widget is the instance abstraction of the widgetDefinition
+
 
 ```
    var widgetDefinition = {"$pageName"  : {
@@ -44,7 +50,7 @@ var widgetDefinition = {
     }    
 }
 ```
-the second hash map represents the instances of the physical pages from the first map
+
 ```
 var widget = {
    "0" : {"page" : "sysPopup",
@@ -74,7 +80,11 @@ Show the current power flow from house to grid, battery and solar system
 
 ### WindowCard
 Shows the status of the house windows
+![screens-cardWindow](doc-pics/card-window.png
 
+### PopupVacuum
+Control Panel for Vacuum cleaner
+![screens-popupVacuum](doc-pics/popupVacuum.png
 
 ### SysPopup
 Allows to change the brightness settings, and shows system informations
