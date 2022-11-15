@@ -88,7 +88,7 @@ Control Panel for Vacuum cleaner
 
 ### SysPopup
 Allows to change the brightness settings, and shows system informations
-![screens-sysPopup](doc-pics/sysPopup.PNG)
+![screens-sysPopup](doc-pics/sysPopup.png)
 ## Documentation
 
 Visit https://docs.nspanel.pky.eu/ for installation instructions and documentation of the configuration.
