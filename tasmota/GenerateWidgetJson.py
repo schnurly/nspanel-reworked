@@ -21,6 +21,8 @@ symbolRobotVacuum = ""
 symbolBroom = ""
 symbolFlash = ""
 symbolCloudQuestion = ""
+symbolPause = ""
+symbolHome = ""
 
 
 widgetDefinition = {
@@ -227,8 +229,8 @@ widget = {
         "components": {                      
            "1" :{"visible" : "true","action":actionUsebackNav,"value" : ""},
            "2": {"visible" : "true","value" :"Dobby"},  
-           "3": {"visible" : "true","value" :"Offline", "valueBasedText":{"Charging":symbolFlash,"Cleaning":symbolBroom,"Offline":symbolCloudQuestion}},
-           "4": {"visible" : "true","value" :""},   
+           "3": {"visible" : "true","value" :"Offline","mqttMappingName" : "Dobby_Status_Symbol", "valueBasedText":{"Returning":symbolHome,"Pause":symbolPause,"Charging":symbolFlash,"Cleaning":symbolBroom,"Offline":symbolCloudQuestion}},
+           "4": {"visible" : "true","value" :"","mqttMappingName" : "Dobby_Status_Text"},   
            "5": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Alles","value" :""}, 
            "6": {"visible" : "true","value" :"Alles"},   
            "7": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Flur","value" :""}, 
@@ -247,16 +249,16 @@ widget = {
         "components": {                      
            "1" :{"visible" : "true","action":actionUsebackNav,"value" : ""},
            "2": {"visible" : "true","value" :"Winky"},  
-           "3": {"visible" : "true","value" :"Offline", "valueBasedText":{"Charging":symbolFlash,"Cleaning":symbolBroom,"Offline":symbolCloudQuestion}},
-           "4": {"visible" : "true","value" :""},   
+           "3": {"visible" : "true","value" :"Offline","mqttMappingName" : "Winky_Status_Symbol", "valueBasedText":{"Returning":symbolHome,"Pause":symbolPause,"Charging":symbolFlash,"Cleaning":symbolBroom,"Offline":symbolCloudQuestion}},
+           "4": {"visible" : "true","value" :"","mqttMappingName" : "Winky_Status_Text"},   
            "5": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Winky_Clean_Alles","value" :""}, 
            "6": {"visible" : "true","value" :"Alles"},   
            "7": {"visible" : "false","value" :""}, 
            "8": {"visible" : "false","value" :""},   
            "9": {"visible" : "false","value" :""}, 
            "10": {"visible" : "false","value" :""},   
-           "11": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Pause","value" :""}, 
-           "12": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Dock","value" :""}   
+           "11": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Winky_Clean_Pause","value" :""}, 
+           "12": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Winky_Clean_Dock","value" :""}   
            
     
         }                 
