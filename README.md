@@ -45,6 +45,9 @@ Allows to change the brightness,timeout settings, and shows system informations
 
 ![screens-sysPopup](doc-pics/sysPopup.png)
 
+## Video
+[Demo](https://youtu.be/geTI_2iE--Y)
+
 ## Tasmota Driver
 used driver: ./tasmota/nspanel_logic.be
 

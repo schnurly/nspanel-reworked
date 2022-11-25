@@ -286,7 +286,9 @@ class Nextion : Driver
         if compType == componentTypeButton       
             self.sendnx(string.format("%s.txt=\"%s\"",compName,compText))          
         elif compType== componentTypeStateButton           
-            self.sendnx(string.format("%s.txt=\"%s\"",compName,compText))            
+            self.sendnx(string.format("%s.txt=\"%s\"",compName,compText))           
+        elif compType== componentTypeText           
+            self.sendnx(string.format("%s.txt=\"%s\"",compName,compText))  
         end
     end
 
