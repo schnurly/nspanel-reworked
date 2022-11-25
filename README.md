@@ -1,6 +1,49 @@
-# Fork Changes
-redesign of ui handling logic.
-ui logic will now handled in tasmota driver 
+# Content
+- Ui Logic and chaining is handled in tasmota driver
+- Page cache in tasmota driver
+- Configurable swiping (left,up,right,down) for page change etc..
+- Clock & Wifi Symbol
+- the state of physical buttons will be displayed at bottom as bars on every page 
+
+## Cards
+cards based on joBr99/nspanel-lovelace-ui
+- cardAlarm
+- cardEntities
+- cardGrid
+- cardThermo
+- cardMedia
+- cardQR
+- popupLight
+- popupShutter
+- popupFan
+- popupNotify
+
+New cards
+- cardSolar
+- cardWindows
+- popupVacuum
+- sysPopup
+
+### SolarCard
+Show the current power flow from house to grid, battery and solar system
+
+![screens-cardSolar](doc-pics/card-solar.png)
+
+
+### WindowCard
+Shows the status of the house windows
+
+![screens-cardWindow](doc-pics/card-window.png)
+
+### PopupVacuum
+Control Panel for Vacuum cleaner
+
+![screens-popupVacuum](doc-pics/popupVacuum.png)
+
+### SysPopup
+Allows to change the brightness,timeout settings, and shows system informations
+
+![screens-sysPopup](doc-pics/sysPopup.png)
 
 ## Tasmota Driver
 used driver: ./tasmota/nspanel_logic.be
@@ -73,22 +116,25 @@ var widget = {
      }
 }
 ```
-### SolarCard
-Show the current power flow from house to grid, battery and solar system
-![screens-cardSolar](doc-pics/card-solar.png)
+| Item | Description |
+| ---- | ----------- |
+| page | name of the used page definition for this instance |
+| backNav | only used internally for the return page |
+| visible | true/false defines whether the component is visible |
+| value | value for a val or txt of component , is also used as a cache |
+| mqttMappingName | name of the component represented in a mqtt message | 
+| mqttValueMapping | hashtable for value, mapping for mqtt submitted values |
+| text | set the txt attribute of a component [1] |
+| valueBasedText | hastable for value , set the txt attribute based on the value mapping |
+| valueBasedColor | hastable for value , set the forecolor of component based on the value mapping |
+| action | action for component, if nextion raises a "released event" [2] |
 
-
-### WindowCard
-Shows the status of the house windows
-![screens-cardWindow](doc-pics/card-window.png)
-
-### PopupVacuum
-Control Panel for Vacuum cleaner
-![screens-popupVacuum](doc-pics/popupVacuum.png)
-
-### SysPopup
-Allows to change the brightness settings, and shows system informations
-![screens-sysPopup](doc-pics/sysPopup.png)
-## Documentation
-
-Visit https://docs.nspanel.pky.eu/ for installation instructions and documentation of the configuration.
+[1]
+for a button component value is used for button.value and text for button.txt
+[2]
+| action | Description |
+| ---- | ----------- |
+| actionRaiseEvent | raises a mqtt message |
+| actionShowPage | navigate to page, the page is defined in value |
+| actionShowPopup | navigate to page and stores the current page in backNav, the page is defined in value |
+| actionUsebackNav | navigate to the page stored in backNav |
