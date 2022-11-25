@@ -1,3 +1,4 @@
+componentTypeSys = 0
 componentTypeText = 1
 componentTypeButton = 2
 componentTypeStateButton = 3
@@ -27,105 +28,131 @@ symbolHome = ""
 
 widgetDefinition = {
     "sysPopup"  : {
-            "components" : {    "1": ["3","buttonClose",componentTypeButton],
-                                "2": ["9","txtIp",componentTypeText], 
-                                "3": ["2","sliderDim",componentTypeSlider]       
+            "components" : {    "1": ["Left","SwipeLeft",componentTypeSys],
+                                "2": ["Up","SwipeUp",componentTypeSys],
+                                "3": ["Right","SwipeRight",componentTypeSys],
+                                "4": ["Down","SwipeDown",componentTypeSys],
+                                "5": ["8","txtIp",componentTypeText], 
+                                "6": ["2","sliderDim",componentTypeSlider]       
             },
-            "syscomponents" : { "1" : ["12","tTime",componentTypeText],
-                                "2" : ["7","vaWifi",componentTypeIntVar] 
+            "syscomponents" : { "1" : ["11","tTime",componentTypeText],
+                                "2" : ["5","vaWifi",componentTypeIntVar] 
            }
     },
     "cardSolar" : {      
-            "components" : {    "1": ["21","vaSolarPanel",componentTypeIntVar],
-                                "2": ["20","vaBattery",componentTypeIntVar], 
-                                "3": ["55","vaHouse",componentTypeIntVar],  
-                                "4": ["19","vaGrid",componentTypeIntVar],
-                                "5": ["26","vaBatteryChaS",componentTypeIntVar],                   
-                                "6": ["29","mSys",componentTypeHotspot], 
-                                "7": ["10","mRight",componentTypeHotspot],
-                                "8": ["49","mleft",componentTypeHotspot]        
+            "components" : {    
+                                "1": ["Left","SwipeLeft",componentTypeSys],
+                                "2": ["Up","SwipeUp",componentTypeSys],
+                                "3": ["Right","SwipeRight",componentTypeSys],
+                                "4": ["Down","SwipeDown",componentTypeSys],
+                                "5": ["19","vaSolarPanel",componentTypeIntVar],
+                                "6": ["18","vaBattery",componentTypeIntVar], 
+                                "7": ["51","vaHouse",componentTypeIntVar],  
+                                "8": ["17","vaGrid",componentTypeIntVar],
+                                "9": ["24","vaBatteryChaS",componentTypeIntVar]    
            },
-           "syscomponents" : {  "1" : ["61","tTime",componentTypeText],
-                                "2" : ["63","vaWifi",componentTypeIntVar],
+           "syscomponents" : {  "1" : ["57","tTime",componentTypeText],
+                                "2" : ["56","vaWifi",componentTypeIntVar],
                                 "3": ["47","txtNoData",componentTypeText],
-                                "4": ["59","vaNoData",componentTypeIntVar]
+                                "4": ["55","vaNoData",componentTypeIntVar]
                             }
             },
     "cardWindow" :
     {      
-       "components" : { "1": ["19","mSys",componentTypeHotspot], 
-                        "2": ["47","mRight",componentTypeHotspot],
-                        "3": ["42","mleft",componentTypeHotspot], 
-                        "4": ["23","p1",componentTypePic],
-                        "5": ["22","txtWindow1",componentTypeText],
-                        "6": ["24","p2",componentTypePic],
-                        "7": ["25","t0",componentTypeText],  
-                        "8": ["26","p3",componentTypePic],
-                        "9": ["27","t1",componentTypeText],  
-                        "10": ["28","p4",componentTypePic],
-                        "11": ["29","t2",componentTypeText],  
-                        "12": ["30","p5",componentTypePic],
-                        "13": ["31","t3",componentTypeText],  
-                        "14": ["32","p6",componentTypePic],
-                        "15": ["41","t8",componentTypeText],  
-                        "16": ["33","p7",componentTypePic],
-                        "17": ["40","t7",componentTypeText],  
-                        "18": ["34","p8",componentTypePic],
-                        "19": ["39","t6",componentTypeText],  
-                        "20": ["35","p9",componentTypePic],
-                        "21": ["38","t5",componentTypeText],
-                        "22": ["36","p10",componentTypePic],
-                        "23": ["37","t4",componentTypeText]
+       "components" : {
+                        "1": ["Left","SwipeLeft",componentTypeSys],
+                        "2": ["Up","SwipeUp",componentTypeSys],
+                        "3": ["Right","SwipeRight",componentTypeSys],
+                        "4": ["Down","SwipeDown",componentTypeSys],                      
+                        "5": ["21","p1",componentTypePic],
+                        "6": ["20","txtWindow1",componentTypeText],
+                        "7": ["22","p2",componentTypePic],
+                        "8": ["23","t0",componentTypeText],  
+                        "9": ["24","p3",componentTypePic],
+                        "10": ["25","t1",componentTypeText],  
+                        "11": ["26","p4",componentTypePic],
+                        "12": ["27","t2",componentTypeText],  
+                        "13": ["28","p5",componentTypePic],
+                        "14": ["29","t3",componentTypeText],  
+                        "15": ["30","p6",componentTypePic],
+                        "16": ["39","t8",componentTypeText],  
+                        "17": ["31","p7",componentTypePic],
+                        "18": ["38","t7",componentTypeText],  
+                        "19": ["32","p8",componentTypePic],
+                        "20": ["37","t6",componentTypeText],  
+                        "21": ["33","p9",componentTypePic],
+                        "22": ["36","t5",componentTypeText],
+                        "23": ["34","p10",componentTypePic],
+                        "24": ["35","t4",componentTypeText]
                       },
-        "syscomponents" : { "1" : ["45","tTime",componentTypeText],
-                            "2" : ["46","vaWifi",componentTypeIntVar]
+        "syscomponents" : { "1" : ["42","tTime",componentTypeText],
+                            "2" : ["41","vaWifi",componentTypeIntVar]
                     }
     },
     "cardGrid" :
     {      
        "components" : {                  
-                        "1": ["38","mSys",componentTypeHotspot], 
-                        "2": ["36","mRight",componentTypeHotspot],
-                        "3": ["39","mleft",componentTypeHotspot], 
-                        "4": ["20","bEntity1",componentTypeButton],
-                        "5": ["3","tEntity1",componentTypeText], 
-                        "6": ["21","bEntity2",componentTypeButton],  
-                        "7": ["22","tEntity2",componentTypeText],
-                        "8": ["23","bEntity3",componentTypeButton],
-                        "9": ["24","tEntity3",componentTypeText], 
-                        "10": ["25","bEntity4",componentTypeButton],
-                        "11": ["26","tEntity4",componentTypeText],   
-                        "12": ["28","bEntity5",componentTypeButton],
-                        "13": ["27","tEntity5",componentTypeText],   
-                        "14": ["29","bEntity6",componentTypeButton],
-                        "15": ["30","tEntity6",componentTypeText],
-                        "16": ["2","tHeading",componentTypeText]
+                        "1": ["Left","SwipeLeft",componentTypeSys],
+                        "2": ["Up","SwipeUp",componentTypeSys],
+                        "3": ["Right","SwipeRight",componentTypeSys],
+                        "4": ["Down","SwipeDown",componentTypeSys],
+                        "5": ["19","bEntity1",componentTypeButton],
+                        "6": ["3","tEntity1",componentTypeText], 
+                        "7": ["20","bEntity2",componentTypeButton],  
+                        "8": ["21","tEntity2",componentTypeText],
+                        "9": ["22","bEntity3",componentTypeButton],
+                        "10": ["23","tEntity3",componentTypeText], 
+                        "11": ["24","bEntity4",componentTypeButton],
+                        "12": ["25","tEntity4",componentTypeText],   
+                        "13": ["27","bEntity5",componentTypeButton],
+                        "14": ["26","tEntity5",componentTypeText],   
+                        "15": ["28","bEntity6",componentTypeButton],
+                        "16": ["29","tEntity6",componentTypeText],
+                        "17": ["2","tHeading",componentTypeText]
                       },
-        "syscomponents" : { "1" : ["41","tTime",componentTypeText],
-                            "2" : ["43","vaWifi",componentTypeIntVar]
+        "syscomponents" : { "1" : ["37","tTime",componentTypeText],
+                            "2" : ["36","vaWifi",componentTypeIntVar]
                     }
     },
     "popupVacuum" :
     {      
        "components" : {                  
-                        "1": ["2","buttonClose",componentTypeButton],
-                        "2": ["3","tHeader",componentTypeText], 
-                        "3": ["12","tStatusSymbol",componentTypeText],
-                        "4": ["16","tStatusText",componentTypeText],
-                        "5": ["9","bZone1",componentTypeButton],
-                        "6": ["19","tZone1",componentTypeText], 
-                        "7": ["17","bZone2",componentTypeButton],
-                        "8": ["20","tZone2",componentTypeText],
-                        "9": ["18","bZone3",componentTypeButton],
-                        "10": ["21","tZone3",componentTypeText],
-                        "11": ["13","bPause",componentTypeButton],
-                        "12": ["14","bDock",componentTypeButton]
+                        "1": ["Left","SwipeLeft",componentTypeSys],
+                        "2": ["Up","SwipeUp",componentTypeSys],
+                        "3": ["Right","SwipeRight",componentTypeSys],
+                        "4": ["Down","SwipeDown",componentTypeSys],
+                        "5": ["2","tHeader",componentTypeText], 
+                        "6": ["11","tStatusSymbol",componentTypeText],
+                        "7": ["15","tStatusText",componentTypeText],
+                        "8": ["8","bZone1",componentTypeButton],
+                        "9": ["18","tZone1",componentTypeText], 
+                        "10": ["16","bZone2",componentTypeButton],
+                        "11": ["19","tZone2",componentTypeText],
+                        "12": ["17","bZone3",componentTypeButton],
+                        "13": ["20","tZone3",componentTypeText],
+                        "14": ["12","bPause",componentTypeButton],
+                        "15": ["13","bDock",componentTypeButton]
                      
                       },
-        "syscomponents" : { "1" : ["7","tTime",componentTypeText],
-                            "2" : ["4","vaWifi",componentTypeIntVar]
+        "syscomponents" : { "1" : ["6","tTime",componentTypeText],
+                            "2" : ["3","vaWifi",componentTypeIntVar]
                     }
-    }     
+    },   
+    "popupNotify" :
+    {      
+       "components" : {                  
+                        "1": ["Left","SwipeLeft",componentTypeSys],
+                        "2": ["Up","SwipeUp",componentTypeSys],
+                        "3": ["Right","SwipeRight",componentTypeSys],
+                        "4": ["Down","SwipeDown",componentTypeSys],
+                        "5": ["4","tHeading",componentTypeText], 
+                        "6": ["5","tText",componentTypeText],
+                        "7": ["16","b0",componentTypeButton]                
+                      },
+        "syscomponents" : { "1" : ["10","tTime",componentTypeText],
+                            "2" : ["9","vaWifi",componentTypeIntVar]
+                    }
+    }    
 }
 
 
@@ -134,133 +161,158 @@ widget = {
         "page" : "sysPopup",
         "backNav" : "",
         "components" : {
-            "1" :{"visible" : "true","action":actionUsebackNav,"value" : "1"},
-            "2" :{"visible" : "true","value" :"0"},
-            "3" :{"visible" : "true","value" :"0"}
+            "1" :{"value" : ""},
+            "2" :{"action":actionUsebackNav,"value" : "1"},
+            "3" :{"value" : ""},
+            "4" :{"value" : ""},
+            "5" :{"visible" : "true","value" :"0"},
+            "6" :{"visible" : "true","value" :"0"}
+        }
+    },    
+    "p1" :{
+        "page" : "popupNotify",
+        "backNav" : "",
+        "components" : {
+            "1" :{"value" : ""},
+            "2" :{"action":actionUsebackNav,"value" : "1"},
+            "3" :{"value" : ""},
+            "4" :{"value" : ""},
+            "5" :{"visible" : "true","value" :""},
+            "6" :{"visible" : "true","value" :""},
+            "7" :{"visible" : "false","value" :"0"}
         }
     },    
     "1": { 
         "page" : "cardSolar",
         "components": { 
-           "1": {"visible" : "true","mqttMappingName" : "powerSolar","value" :"0"},
-           "2": {"visible" : "true","mqttMappingName" : "powerBattery","value" :"0"},
-           "3": {"visible" : "true","mqttMappingName" : "powerHouse","value" :"0"},
-           "4": {"visible" : "true","mqttMappingName" : "powerGrid","value" :"0"},
-           "5": {"visible" : "true","mqttMappingName" : "batteryChargeState","value" :"0"},                        
-           "6": { "action" : actionShowPopup,"value" : "0"},
-           "7": { "action" : actionShowPage,"value" : "2"},
-           "8": { "action" : actionShowPage,"value" : "4"}
+           "1": {"action" : actionShowPage,"value" : "2"},
+           "2": {"value" : ""},
+           "3": {"action" : actionShowPage,"value" : "4"},
+           "4": {"action" : actionShowPopup,"value" : "0"},
+           "5": {"visible" : "true","mqttMappingName" : "powerSolar","value" :"0"},
+           "6": {"visible" : "true","mqttMappingName" : "powerBattery","value" :"0"},
+           "7": {"visible" : "true","mqttMappingName" : "powerHouse","value" :"0"},
+           "8": {"visible" : "true","mqttMappingName" : "powerGrid","value" :"0"},
+           "9": {"visible" : "true","mqttMappingName" : "batteryChargeState","value" :"0"},                        
+          
         }         
     },
     "2": {
         "page" : "cardWindow",
         "components": { 
-           "1": { "action" : actionShowPopup,"value" : "0"},
-           "2": { "action" : actionShowPage, "value" : "3"},
-           "3": { "action" : actionShowPage, "value" : "1"},
-           "4": {"visible" : "true","mqttMappingName" : "T_WindowSleepingRoom_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-           "5": {"visible" : "true","value" :"Schlafzimmer"},
-           "6": {"visible" : "true","mqttMappingName" : "T_WindowChild1Room_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-           "7": {"visible" : "true","value" :"Anja"}, 
-           "8": {"visible" : "true","mqttMappingName" : "T_WindowChild2Room_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-           "9": {"visible" : "true","value" :"Benjamin"},   
-           "10": {"visible" : "true","mqttMappingName" : "T_WindowBath_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-           "11": {"visible" : "true","value" :"Bad"},   
-           "12": {"visible" : "true","mqttMappingName" : "T_WindowKitchen_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-           "13": {"visible" : "true","value" :"Kueche"},   
-           "14": {"visible" : "true","mqttMappingName" : "T_WindowWC_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-           "15": {"visible" : "true","value" :"Klo"},   
-           "16": {"visible" : "true","mqttMappingName" : "T_WindowLivingRoom_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}}, 
-           "17": {"visible" : "true","value" :"Terrasse"},   
-           "18": {"visible" : "true","mqttMappingName" : "T_WindowDummy_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-           "19": {"visible" : "true","value" :"Haustuer"},   
-           "20": {"visible" : "true","mqttMappingName" : "T_WindowHobbyRoom1_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-           "21": {"visible" : "true","value" :"HobbyR"},   
-           "22": {"visible" : "true","mqttMappingName" : "T_WindowHobbyRoom2_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
-           "23": {"visible" : "true","value" :"HobbyL"}       
+           "1": {"action" : actionShowPage,"value" : "3"},
+           "2": {"value" : ""},
+           "3": {"action" : actionShowPage,"value" : "1"},
+           "4": {"action" : actionShowPopup,"value" : "0"},    
+           "5": {"visible" : "true","mqttMappingName" : "T_WindowSleepingRoom_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
+           "6": {"visible" : "true","value" :"Schlafzimmer"},
+           "7": {"visible" : "true","mqttMappingName" : "T_WindowChild1Room_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
+           "8": {"visible" : "true","value" :"Anja"}, 
+           "9": {"visible" : "true","mqttMappingName" : "T_WindowChild2Room_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
+           "10": {"visible" : "true","value" :"Benjamin"},   
+           "11": {"visible" : "true","mqttMappingName" : "T_WindowBath_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
+           "12": {"visible" : "true","value" :"Bad"},   
+           "13": {"visible" : "true","mqttMappingName" : "T_WindowKitchen_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
+           "14": {"visible" : "true","value" :"Kueche"},   
+           "15": {"visible" : "true","mqttMappingName" : "T_WindowWC_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
+           "16": {"visible" : "true","value" :"Klo"},   
+           "17": {"visible" : "true","mqttMappingName" : "T_WindowLivingRoom_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}}, 
+           "18": {"visible" : "true","value" :"Terrasse"},   
+           "19": {"visible" : "true","mqttMappingName" : "T_WindowDummy_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
+           "20": {"visible" : "true","value" :"Haustuer"},   
+           "21": {"visible" : "true","mqttMappingName" : "T_WindowHobbyRoom1_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
+           "22": {"visible" : "true","value" :"HobbyR"},   
+           "23": {"visible" : "true","mqttMappingName" : "T_WindowHobbyRoom2_IsOpen","value" :"30","mqttValueMapping":{"OPEN":"31","CLOSED":"30"}},
+           "24": {"visible" : "true","value" :"HobbyL"}       
         }         
     },  
     "3": { 
         "page" : "cardGrid",
-        "components": {                      
-           "1": { "action" : actionShowPopup,"value" : "0"},
-           "2": { "action" : actionShowPage,"value" : "4"},
-           "3": { "action" : actionShowPage,"value" : "2"},
-           "4": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Tisch","mqttValueMapping":{"ON":"1","OFF":"0"},"text":symbolLight,"valueBasedColor":{"1":"65504","0":"65535"}},   
-           "5": {"visible" : "true","value" :"Esstisch"},  
-           "6": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Ecke","mqttValueMapping":{"ON":"1","OFF":"0"},"text":symbolFloorLamp,"valueBasedColor":{"1":"65504","0":"65535"}},   
-           "7": {"visible" : "true","value" :"Ecke"},
-           "8": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Couch","mqttValueMapping":{"ON":"1","OFF":"0"},"text":symbolFloorLamp,"valueBasedColor":{"1":"65504","0":"65535"}},   
-           "9": {"visible" : "true","value" :"Couch"},
-           "10": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Wall","mqttValueMapping":{"ON":"1","OFF":"0"},"text":symbolLight,"valueBasedColor":{"1":"65504","0":"65535"}},   
-           "11": {"visible" : "true","value" :"Wand"},
-           "12": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_TV_Plug","mqttValueMapping":{"ON":"1","OFF":"0"},"valueBasedText":{"1":symbolPowerPlug,0:symbolPowerPlugOff}},   
-           "13": {"visible" : "true","value" :"TV"}, 
-           "14": { "action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "PowerOffAllWohnzimmer","text":symbolPower,"valueBasedColor":{"0":"43072"}},   
-           "15": {"visible" : "true","value" :"Power OFF ALL"},
-           "16": {"visible" : "true","value" :"Wohnzimmer"}
+        "components": {      
+           "1": {"action" : actionShowPage,"value" : "4"},
+           "2": {"value" : ""},
+           "3": {"action" : actionShowPage,"value" : "2"},
+           "4": {"action" : actionShowPopup,"value" : "0"},    
+           "5": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Tisch","mqttValueMapping":{"ON":"1","OFF":"0"},"text":symbolLight,"valueBasedColor":{"1":"65504","0":"65535"}},   
+           "6": {"visible" : "true","value" :"Esstisch"},  
+           "7": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Ecke","mqttValueMapping":{"ON":"1","OFF":"0"},"text":symbolFloorLamp,"valueBasedColor":{"1":"65504","0":"65535"}},   
+           "8": {"visible" : "true","value" :"Ecke"},
+           "9": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Couch","mqttValueMapping":{"ON":"1","OFF":"0"},"text":symbolFloorLamp,"valueBasedColor":{"1":"65504","0":"65535"}},   
+           "10": {"visible" : "true","value" :"Couch"},
+           "11": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Wall","mqttValueMapping":{"ON":"1","OFF":"0"},"text":symbolLight,"valueBasedColor":{"1":"65504","0":"65535"}},   
+           "12": {"visible" : "true","value" :"Wand"},
+           "13": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_TV_Plug","mqttValueMapping":{"ON":"1","OFF":"0"},"valueBasedText":{"1":symbolPowerPlug,0:symbolPowerPlugOff}},   
+           "14": {"visible" : "true","value" :"TV"}, 
+           "15": { "action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "PowerOffAllWohnzimmer","text":symbolPower,"valueBasedColor":{"0":"43072"}},   
+           "16": {"visible" : "true","value" :"Power OFF ALL"},
+           "17": {"visible" : "true","value" :"Wohnzimmer"}
         }         
         
     },  
     "4": { 
         "page" : "cardGrid",
-        "components": {                      
-           "1": { "action" : actionShowPopup,"value" : "0"},
-           "2": { "action" : actionShowPage,"value" : "1"},
-           "3": { "action" : actionShowPage,"value" : "3"},
-           "4": {"action":actionShowPopup, "visible":"true","value":"5","valueBasedColor":{"5":"1304"},"text":symbolRobotVacuum},   
-           "5": {"visible" : "true","value" :"Dobby"},  
-           "6": {"visible" : "false","value" :""}, 
-           "7": {"visible" : "false","value" :""},
-           "8": {"action":actionShowPopup, "visible":"true","value":"6","valueBasedColor":{"6":"1304"},"text":symbolRobotVacuum},   
-           "9": {"visible" : "true","value" :"Winky"},
-           "10": {"visible" : "false","value" :""},   
-           "11": {"visible" : "false","value" :""},
-           "12": {"visible" : "false","value" :""},   
-           "13": {"visible" : "false","value" :""}, 
-           "14": { "visible" : "false","value" :""},   
-           "15": {"visible" : "false","value" :""},
-           "16": {"visible" : "true","value" :"Staubsauger"}
+        "components": {      
+           "1": {"action" : actionShowPage,"value" : "1"},
+           "2": {"value" : ""},
+           "3": {"action" : actionShowPage,"value" : "3"},
+           "4": {"action" : actionShowPopup,"value" : "0"},                
+           "5": {"action":actionShowPopup, "visible":"true","value":"pDobby","valueBasedColor":{"pDobby":"1304"},"text":symbolRobotVacuum},   
+           "6": {"visible" : "true","value" :"Dobby"},  
+           "7": {"visible" : "false","value" :""}, 
+           "8": {"visible" : "false","value" :""},
+           "9": {"action":actionShowPopup, "visible":"true","value":"pWinky","valueBasedColor":{"pWinky":"1304"},"text":symbolRobotVacuum},   
+           "10": {"visible" : "true","value" :"Winky"},
+           "11": {"visible" : "false","value" :""},   
+           "12": {"visible" : "false","value" :""},
+           "13": {"visible" : "false","value" :""},   
+           "14": {"visible" : "false","value" :""}, 
+           "15": { "visible" : "false","value" :""},   
+           "16": {"visible" : "false","value" :""},
+           "17": {"visible" : "true","value" :"Staubsauger"}
         }                 
     },     
-    "5": { 
+    "pDobby": { 
         "page" : "popupVacuum",
         "backNav" : "",
-        "components": {                      
-           "1" :{"visible" : "true","action":actionUsebackNav,"value" : ""},
-           "2": {"visible" : "true","value" :"Dobby"},  
-           "3": {"visible" : "true","value" :"Offline","mqttMappingName" : "Dobby_Status_Symbol", "valueBasedText":{"Returning":symbolHome,"Pause":symbolPause,"Charging":symbolFlash,"Cleaning":symbolBroom,"Offline":symbolCloudQuestion}},
-           "4": {"visible" : "true","value" :"","mqttMappingName" : "Dobby_Status_Text"},   
-           "5": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Alles","value" :""}, 
-           "6": {"visible" : "true","value" :"Alles"},   
-           "7": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Flur","value" :""}, 
-           "8": {"visible" : "true","value" :"Flur"},   
-           "9": {"visible" : "false","value" :""}, 
-           "10": {"visible" : "false","value" :""},   
-           "11": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Pause","value" :""}, 
-           "12": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Dock","value" :""}   
+        "components": {  
+           "1": { "action" : actionShowPage,"value" : "2"},
+           "2": { "action" : actionUsebackNav,"value" : "0"},
+           "3": { "action" : actionShowPage,"value" : "4"},
+           "4": {"value" : ""},           
+           "5": {"visible" : "true","value" :"Dobby"},  
+           "6": {"visible" : "true","value" :"Offline","mqttMappingName" : "Dobby_Status_Symbol", "valueBasedText":{"Returning":symbolHome,"Pause":symbolPause,"Charging":symbolFlash,"Cleaning":symbolBroom,"Offline":symbolCloudQuestion}},
+           "7": {"visible" : "true","value" :"","mqttMappingName" : "Dobby_Status_Text"},   
+           "8": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Alles","value" :""}, 
+           "9": {"visible" : "true","value" :"Alles"},   
+           "10": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Flur","value" :""}, 
+           "11": {"visible" : "true","value" :"Flur"},   
+           "12": {"visible" : "false","value" :""}, 
+           "13": {"visible" : "false","value" :""},   
+           "14": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Pause","value" :""}, 
+           "15": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Dobby_Clean_Dock","value" :""}   
            
     
         }                 
     },
-    "6": { 
+    "pWinky": { 
         "page" : "popupVacuum",
         "backNav" : "",
-        "components": {                      
-           "1" :{"visible" : "true","action":actionUsebackNav,"value" : ""},
-           "2": {"visible" : "true","value" :"Winky"},  
-           "3": {"visible" : "true","value" :"Offline","mqttMappingName" : "Winky_Status_Symbol", "valueBasedText":{"Returning":symbolHome,"Pause":symbolPause,"Charging":symbolFlash,"Cleaning":symbolBroom,"Offline":symbolCloudQuestion}},
-           "4": {"visible" : "true","value" :"","mqttMappingName" : "Winky_Status_Text"},   
-           "5": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Winky_Clean_Alles","value" :""}, 
-           "6": {"visible" : "true","value" :"Alles"},   
-           "7": {"visible" : "false","value" :""}, 
-           "8": {"visible" : "false","value" :""},   
-           "9": {"visible" : "false","value" :""}, 
-           "10": {"visible" : "false","value" :""},   
-           "11": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Winky_Clean_Pause","value" :""}, 
-           "12": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Winky_Clean_Dock","value" :""}   
-           
-    
+        "components": {          
+           "1": { "action" : actionShowPage,"value" : "2"},
+           "2": { "action" : actionUsebackNav,"value" : "0"},
+           "3": { "action" : actionShowPage,"value" : "4"},
+           "4": {"value" : ""},        
+           "5": {"visible" : "true","value" :"Winky"},  
+           "6": {"visible" : "true","value" :"Offline","mqttMappingName" : "Winky_Status_Symbol", "valueBasedText":{"Returning":symbolHome,"Pause":symbolPause,"Charging":symbolFlash,"Cleaning":symbolBroom,"Offline":symbolCloudQuestion}},
+           "7": {"visible" : "true","value" :"","mqttMappingName" : "Winky_Status_Text"},   
+           "8": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Winky_Clean_Alles","value" :""}, 
+           "9": {"visible" : "true","value" :"Alles"},   
+           "10": {"visible" : "false","value" :""}, 
+           "11": {"visible" : "false","value" :""},   
+           "12": {"visible" : "false","value" :""}, 
+           "13": {"visible" : "false","value" :""},   
+           "14": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Winky_Clean_Pause","value" :""}, 
+           "15": {"visible" : "true","action":actionRaiseEvent,"mqttMappingName" : "Winky_Clean_Dock","value" :""}                  
         }                 
     }
  }

@@ -1,12 +1,10 @@
-# Sonoff NSPanel Tasmota Lovelace UI Berry Driver | code by joBr99
-# based on;
 # Sonoff NSPanel Tasmota (Nextion with Flashing) driver | code by peepshow-21
 # based on;
 # Sonoff NSPanel Tasmota driver v0.47 | code by blakadder and s-hadinger
 
 # Example Flash
 # FlashNextion http://ip-address-of-your-homeassistant:8123/local/nspanel.tft
-# FlashNextion http://nspanel.pky.eu/lui.tft
+var version_of_this_script = 1
 
 var debug = false
 
@@ -15,6 +13,7 @@ var mqtttopiccmnd = "cmnd/tasmota_C851C0"
 # wenn bei publish_result der subtopic funktionieren sollte kann das hier entfernt werden, 
 # ansonsten geht mir auch die info ab wie und ob der TOPIC in einer Globalenvariable versteckt ist, doku ist nichts zu findne.
 
+var componentTypeSys = 0
 var componentTypeText = 1
 var componentTypeButton = 2
 var componentTypeStateButton = 3
@@ -29,6 +28,7 @@ var actionShowPopup = 2
 var actionShowPage = 3
 var actionRaiseEvent = 4
 
+
 var indexPageName = 0
 var indexBackNam = 1
 var indexComponents = 2
@@ -40,7 +40,7 @@ var sysComponentStore = {}
 #var widget = ""
 
 var isSleeping = 0
-var _currentPageId = "1"
+var _currentPageId = "-1"
 var idleCount = 0
 
 def dlog(message)
@@ -216,8 +216,14 @@ class Nextion : Driver
         if (self.flash_mode==1)
             return
         end
+        if(pageId == _currentPageId)
+            return
+        end
+        if(!(widget.contains(pageId)))
+            return
+        end
         import string         
-        dlog("change_page to " + pageId)
+        dlog("change_page to " + str(pageId))
         _currentPageId = pageId
         var pageToNav = widget[pageId][0] 
      
@@ -307,7 +313,7 @@ class Nextion : Driver
         for comps:widget[_currentPageId][indexComponents]    
             if comps[0] == componentId
                 dlog(comps[4])
-                if comps[2] == componentTypeButton || comps[2] == componentTypeHotspot                    
+                if comps[2] == componentTypeButton || comps[2] == componentTypeHotspot || comps[2] == componentTypeSys                   
                     var action = comps[5]
                     print(string.format("do action:%s",action))
                     if action == actionShowPage
@@ -316,15 +322,10 @@ class Nextion : Driver
                         dlog("page:" +_currentPageId)                       
                         widget[comps[4]].setitem(indexBackNam,_currentPageId)
                         self.change_page(comps[4])
-                        #_currentPageId = comps[4]
-                        #dlog("to page:" + comps[4])
-                        #var pageToNav=widget[comps[4]][indexPageName]      
-                        #self.sendnx(string.format("page %s",pageToNav))
-                        #self.prepare_page(comps[4])    
                     elif action == actionUsebackNav
                         self.change_page(widget[_currentPageId][indexBackNam])
                     elif action == actionRaiseEvent
-                        tasmota.publish(mqtttopic +"/BUTTONEVENT",string.format("{\"pageId\":\"%s\", \"component\":\"%s\",\"event\":\"%s\"}",_currentPageId,comps[6],eventType))
+                        tasmota.publish(mqtttopic +"/BUTTONEVENT",string.format("{\"pageId\":\"%s\", \"component\":\"%s\",\"event\":\"%s\"}",_currentPageId,comps[6],eventType))              
                     end    
                 end
                 break
@@ -409,10 +410,17 @@ class Nextion : Driver
             for comp : payload_json["components"]                         
                 self.update_component_mqtt(payload_json["pageId"],comp[0],comp[1])  
             end  
-            retVal = true          
+            retVal = true   
+        elif cmd == "NotifyMessage"       
+            self.update_component_mqtt("p1","tHeading",payload_json["header"])
+            self.update_component_mqtt("p1","tText",payload_json["message"])
+            self.set_display_wakeup()            
+            tasmota.cmd("buzzer 5,5,3")
+            retVal = true   
         end    
         return retVal  
     end
+
      
     def set_clock()
         
@@ -512,20 +520,24 @@ class Nextion : Driver
                                         self.handle_nextion_events(compNextionId,"released") 
                                     end
                                 else
-                                    if msg[3] == 0x00 # button released
-                                        self.sendnx("dim=dimValueNormal")
-                                        isSleeping = 0 
-                                        tasmota.publish(mqtttopic + "/DISPLAYEVENT",string.format("{\"pageId\":\"%s\", \"event\":\"wakeup\"}",_currentPageId))
+                                    if msg[3] == 0x00 # button released                                     
+                                        self.set_display_wakeup()
                                      end 
                                 end 
                                 
                             elif (msg[0] == 0x55 && msg[1] == 0xbb)  #CustomCommand                           
                                 if msg[2] == 0x02  # wakup
-                                    isSleeping = 0 
-                                    tasmota.publish(mqtttopic + "/DISPLAYEVENT",string.format("{\"pageId\":\"%s\", \"event\":\"wakeup\"}",_currentPageId))
+                                    self.set_display_wakeup()
                                 elif msg[2] == 0x01 # sleep
-                                    isSleeping = 1
-                                    tasmota.publish(mqtttopic + "/DISPLAYEVENT",string.format("{\"pageId\":\"%s\", \"event\":\"sleep\"}",_currentPageId))
+                                    self.set_display_sleep()
+                                elif msg[2] == 0x03 # Swipe
+                                    if isSleeping == 0
+                                        var swipe = msg[5..-3].asstring()
+                                        dlog(string.format("got swipe command -%s-",swipe))
+                                        self.handle_nextion_events(swipe,"released") 
+                                    else
+                                        self.set_display_wakeup()
+                                    end 
                                 end    
                             elif msg[0]==0x07 && size(msg)==1 # BELL/Buzzer
                                 tasmota.cmd("buzzer 1,1")                           
@@ -536,6 +548,19 @@ class Nextion : Driver
             end
         end
     end      
+    
+    def set_display_sleep()
+        import string
+        isSleeping = 1
+        tasmota.publish(mqtttopic + "/DISPLAYEVENT",string.format("{\"pageId\":\"%s\", \"event\":\"sleep\"}",_currentPageId))
+    end
+    def set_display_wakeup()
+        import string
+        self.sendnx("sleepValue=0")
+        self.sendnx("dim=dimValueNormal")
+        isSleeping = 0 
+        tasmota.publish(mqtttopic + "/DISPLAYEVENT",string.format("{\"pageId\":\"%s\", \"event\":\"wakeup\"}",_currentPageId))
+    end
 
     def begin_nextion_flash()
         self.flash_written = 0
@@ -641,7 +666,7 @@ class Nextion : Driver
         self.ser = serial(17, 16, 115200, serial.SERIAL_8N1)
         self.flash_mode = 0
         tasmota.add_cron("*/15 * * * * *", /-> self.every_15_s(), "every_15_s")
-        self.change_page(_currentPageId)     
+        self.change_page("1")     
         tasmota.publish(mqtttopic + "/DISPLAYEVENT",string.format("{\"pageId\":\"%s\", \"event\":\"wakeup\"}",_currentPageId))
     end
 
@@ -650,34 +675,36 @@ end
 
 def get_current_version(cmd, idx, payload, payload_json)
 	import string
-	var version_of_this_script = 4
+
 	var jm = string.format("{\"nlui_driver_version\":\"%s\"}", version_of_this_script)
 	tasmota.publish_result(jm, "RESULT")
 end
 
 
-def update_berry_driver(cmd, idx, payload, payload_json)
+
+
+def update_driver(cmd, idx, payload, payload_json,filename)
 	def task()
 		import string
 		var cl = webclient()
 		cl.begin(payload)
 		var r = cl.GET()
 		if r == 200
-			print("Sucessfully downloaded nspanel-lovelace-ui berry driver")
+			print("Sucessfully downloaded  berry driver from" )
 		else
-			print("Error while downloading nspanel-lovelace-ui berry driver")
+			print("Error while downloading berry driver from" )
 		end
-		r = cl.write_file("autoexec.be")
+		r = cl.write_file(filename)
 		if r < 0
-			print("Error while writeing nspanel-lovelace-ui berry driver")
+			print("Error while writeing file " )
 		else
-			print("Sucessfully written nspanel-lovelace-ui berry driver")
-			var s = load('autoexec.be')
+			print("Sucessfully written file " )
+			var s = load(filename)
 			if s == true
-				var jm = string.format("{\"nlui_driver_update\":\"%s\"}", "succeeded")
+				var jm = string.format("{\"%s_update\":\"%s\"}", filename,"succeeded")
 				tasmota.publish_result(jm, "RESULT")
 			else 
-				var jm = string.format("{\"nlui_driver_update\":\"%s\"}", "failed")
+				var jm = string.format("{\"%s_update\":\"%s\"}",filename, "failed")
 				tasmota.publish_result(jm, "RESULT")
 			end
 			
@@ -685,6 +712,13 @@ def update_berry_driver(cmd, idx, payload, payload_json)
 	end
 	tasmota.set_timer(0,task)
 	tasmota.resp_cmnd_done()
+end
+
+def update_berry_driver(cmd, idx, payload, payload_json)
+    update_driver(cmd, idx, payload, payload_json,"nspanel_logic.be")
+end
+def update_widget_json(cmd, idx, payload, payload_json)
+    update_driver(cmd, idx, payload, payload_json,"widget.json")
 end
 
 var nextion = Nextion()
@@ -706,7 +740,7 @@ def send_cmd(cmd, idx, payload, payload_json)
 end
 
 
-def send_mqtt(cmd, idx, payload_json, payload_binary)
+def mqtt_content_update(cmd, idx, payload_json, payload_binary)
     import json
     var payload = json.load(payload_json)
     if payload == nil
@@ -717,6 +751,16 @@ def send_mqtt(cmd, idx, payload_json, payload_binary)
     return true
 end
 
+def mqtt_notify_message(cmd, idx, payload_json, payload_binary)
+    import json
+    var payload = json.load(payload_json)
+    if payload == nil
+        return false
+    else
+       nextion.handle_mqtt_command("NotifyMessage", payload)
+    end
+    return true
+end 
 
 
 
@@ -724,6 +768,8 @@ log("add mqtt handler to GetDriverVersion")
 tasmota.add_cmd('GetDriverVersion', get_current_version)
 log("add mqtt handler to UpdateDriverVersion")
 tasmota.add_cmd('UpdateDriverVersion', update_berry_driver)
+log("add mqtt handler to UpdateWidgetJson")
+tasmota.add_cmd('UpdateWidgetVersion', update_widget_json)
 
 log("add mqtt handler to Nextion")
 tasmota.add_cmd('Nextion', send_cmd)
@@ -734,7 +780,8 @@ tasmota.add_cmd('FlashNextion', flash_nextion)
 import mqtt
 #to avoid mqtt response message , mqtt.subscribe is used instead of add_cmd
 log("add mqtt handler to UpdateContent")
-mqtt.subscribe(mqtttopiccmnd + "/UpdateContent",send_mqtt)
+mqtt.subscribe(mqtttopiccmnd + "/UpdateContent",mqtt_content_update)
+mqtt.subscribe(mqtttopiccmnd + "/NotifyMessage",mqtt_notify_message)
 
 log("add rule handler to power1#state")
 tasmota.add_rule("power1#state", /-> nextion.set_power())
