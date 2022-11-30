@@ -49,6 +49,11 @@ def dlog(message)
     end
 end
 
+var hasPageLock = false
+
+def reset_page_lock()
+    hasPageLock=false
+end
 
 class Nextion : Driver
 
@@ -67,6 +72,7 @@ class Nextion : Driver
     var ser
     var last_per
 	var url
+ 
 
     def set_power()
         import string
@@ -516,10 +522,12 @@ class Nextion : Driver
                                 compNextionId = str(msg[2])
                               
                                 if isSleeping == 0
-                                    if msg[3] == 0x01                              
-                                        self.handle_nextion_events(compNextionId,"pressed") 
-                                    else 
-                                        self.handle_nextion_events(compNextionId,"released") 
+                                    if hasPageLock == false
+                                        if msg[3] == 0x01                              
+                                            self.handle_nextion_events(compNextionId,"pressed") 
+                                        else 
+                                            self.handle_nextion_events(compNextionId,"released") 
+                                        end
                                     end
                                 else
                                     if msg[3] == 0x00 # button released                                     
@@ -534,6 +542,8 @@ class Nextion : Driver
                                     self.set_display_sleep()
                                 elif msg[2] == 0x03 # Swipe
                                     if isSleeping == 0
+                                        hasPageLock = true                                     
+                                        tasmota.set_timer(500, reset_page_lock)
                                         var swipe = msg[5..-3].asstring()
                                         dlog(string.format("got swipe command -%s-",swipe))
                                         self.handle_nextion_events(swipe,"released") 
