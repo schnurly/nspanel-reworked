@@ -12,7 +12,8 @@ actionShowPopup = 2
 actionShowPage = 3
 actionRaiseEvent = 4
 
-symbolLight = ""
+symbolLightBulb = ""
+symbolLightBulbOn = ""
 symbolPowerPlug = ""
 symbolPowerPlugOff = ""
 symbolPower = ""
@@ -230,25 +231,69 @@ widget = {
         "page" : "cardGrid",
         "components": {      
            "1": {"action" : actionShowPage,"value" : "4"},
-           "2": {"value" : ""},
+           "2": {"action" : actionShowPage,"value" : "3.1"},
            "3": {"action" : actionShowPage,"value" : "2"},
            "4": {"action" : actionShowPopup,"value" : "0"},    
-           "5": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Tisch","mqttValueMapping":{"ON":"1","OFF":"0"},"text":symbolLight,"valueBasedColor":{"1":"65504","0":"65535"}},   
+           "5": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Tisch","mqttValueMapping":{"ON":"1","OFF":"0"},"valueBasedText":{"1":symbolLightBulbOn,0:symbolLightBulb},"valueBasedColor":{"1":"65504","0":"65535"}},   
            "6": {"visible" : "true","value" :"Esstisch"},  
            "7": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Ecke","mqttValueMapping":{"ON":"1","OFF":"0"},"text":symbolFloorLamp,"valueBasedColor":{"1":"65504","0":"65535"}},   
            "8": {"visible" : "true","value" :"Ecke"},
            "9": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Couch","mqttValueMapping":{"ON":"1","OFF":"0"},"text":symbolFloorLamp,"valueBasedColor":{"1":"65504","0":"65535"}},   
            "10": {"visible" : "true","value" :"Couch"},
-           "11": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Wall","mqttValueMapping":{"ON":"1","OFF":"0"},"text":symbolLight,"valueBasedColor":{"1":"65504","0":"65535"}},   
+           "11": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Wall","mqttValueMapping":{"ON":"1","OFF":"0"},"valueBasedText":{"1":symbolLightBulbOn,0:symbolLightBulb},"valueBasedColor":{"1":"65504","0":"65535"}},   
            "12": {"visible" : "true","value" :"Wand"},
            "13": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_TV_Plug","mqttValueMapping":{"ON":"1","OFF":"0"},"valueBasedText":{"1":symbolPowerPlug,0:symbolPowerPlugOff}},   
            "14": {"visible" : "true","value" :"TV"}, 
            "15": { "action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "PowerOffAllWohnzimmer","text":symbolPower,"valueBasedColor":{"0":"43072"}},   
-           "16": {"visible" : "true","value" :"Power OFF ALL"},
+           "16": {"visible" : "true","value" :"Alles Aus"},
            "17": {"visible" : "true","value" :"Wohnzimmer"}
         }         
         
+    }, 
+    "3.1": { 
+        "page" : "cardGrid",
+        "components": {      
+           "1": {"action" : actionShowPage,"value" : "4"},
+           "2": {"action" : actionShowPage,"value" : "3.2"},
+           "3": {"action" : actionShowPage,"value" : "2"},
+           "4": {"action" : actionShowPage,"value" : "3"},    
+           "5": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Anja","mqttValueMapping":{"ON":"1","OFF":"0"},"valueBasedText":{"1":symbolLightBulbOn,0:symbolLightBulb},"valueBasedColor":{"1":"65504","0":"65535"}},   
+           "6": {"visible" : "true","value" :"Anja"},  
+           "7": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Benjamin","mqttValueMapping":{"ON":"1","OFF":"0"},"valueBasedText":{"1":symbolLightBulbOn,0:symbolLightBulb},"valueBasedColor":{"1":"65504","0":"65535"}},   
+           "8": {"visible" : "true","value" :"Benjamin"},
+           "9": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_FlurOG","mqttValueMapping":{"ON":"1","OFF":"0"},"valueBasedText":{"1":symbolLightBulbOn,0:symbolLightBulb},"valueBasedColor":{"1":"65504","0":"65535"}},   
+           "10": {"visible" : "true","value" :"Flur"},
+           "11": {"visible" : "false","value" :""},   
+           "12": {"visible" : "false","value" :""},
+           "13": {"visible" : "false","value" :""},   
+           "14": {"visible" : "false","value" :""}, 
+           "15": { "visible" : "false","value" :""},   
+           "16": {"visible" : "false","value" :""},
+           "17": {"visible" : "true","value" :"Obergeschoss"}
+        }                 
     },  
+     "3.2": { 
+        "page" : "cardGrid",
+        "components": {      
+           "1": {"action" : actionShowPage,"value" : "4"},
+           "2": {"action" : actionShowPage,"value" : "3"},
+           "3": {"action" : actionShowPage,"value" : "2"},
+           "4": {"action" : actionShowPage,"value" : "3.1"},    
+           "5": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_Hobbyraum","mqttValueMapping":{"ON":"1","OFF":"0"},"valueBasedText":{"1":symbolLightBulbOn,0:symbolLightBulb},"valueBasedColor":{"1":"65504","0":"65535"}},   
+           "6": {"visible" : "true","value" :"Hobbyraum"},  
+           "7": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_HobbyraumLED","mqttValueMapping":{"ON":"1","OFF":"0"},"valueBasedText":{"1":symbolLightBulbOn,0:symbolLightBulb},"valueBasedColor":{"1":"65504","0":"65535"}},   
+           "8": {"visible" : "true","value" :"Hobbyraum LED"},
+           "9": {"action":actionRaiseEvent, "visible":"true","value":"0","mqttMappingName" : "Power_Light_FlurKG","mqttValueMapping":{"ON":"1","OFF":"0"},"valueBasedText":{"1":symbolLightBulbOn,0:symbolLightBulb},"valueBasedColor":{"1":"65504","0":"65535"}},   
+           "10": {"visible" : "true","value" :"Flur"},
+           "11": {"visible" : "false","value" :""},   
+           "12": {"visible" : "false","value" :""},
+           "13": {"visible" : "false","value" :""},   
+           "14": {"visible" : "false","value" :""}, 
+           "15": { "visible" : "false","value" :""},   
+           "16": {"visible" : "false","value" :""},
+           "17": {"visible" : "true","value" :"Keller"}
+        }                 
+    },      
     "4": { 
         "page" : "cardGrid",
         "components": {      
