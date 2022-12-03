@@ -119,18 +119,18 @@ var widget = {
      }
 }
 ```
-| Item | Description |
-| ---- | ----------- |
-| page | name of the used page definition for this instance |
-| backNav | only used internally for the return page |
-| visible | true/false defines whether the component is visible |
-| value | value for a val or txt of component , is also used as a cache |
-| mqttMappingName | name of the component represented in a mqtt message | 
-| mqttValueMapping | hashtable for value, mapping for mqtt submitted values |
-| text | set the txt attribute of a component [1] |
-| valueBasedText | hastable for value , set the txt attribute based on the value mapping |
-| valueBasedColor | hastable for value , set the forecolor of component based on the value mapping |
-| action | action for component, if nextion raises a "released event" [2] |
+| Item | Description | Syntax |
+| ---- | ----------- | ------ |
+| page | name of the used page definition for this instance | "page" : "sysPopup" |
+| backNav | only used internally for the return page | |
+| visible | true/false defines whether the component is visible | "visible" : "true" |
+| value | value for a val or txt of component , is also used as a cache | "value" :"0" |
+| mqttMappingName | name of the component represented in a mqtt message | "mqttMappingName" : "powerSolar" |
+| mqttValueMapping | hashtable for value, mapping for mqtt submitted values | "mqttValueMapping":{"ON":"1","OFF":"0"} |
+| text | set the txt attribute of a component [1] | "text": "1234txt" | 
+| valueBasedText | hastable for value , set the txt attribute based on the value mapping | "valueBasedText":{"1":symbolLightBulbOn,"0":symbolLightBulb} |
+| valueBasedColor | hastable for value , set the forecolor of component based on the value mapping | "valueBasedColor":{"1":"65504","0":"65535"} |
+| action | action for component, if nextion raises a "released event" [2] | "action" : actionShowPage
 
 [1]
 for a button component value is used for button.value and text for button.txt

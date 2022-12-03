@@ -564,6 +564,7 @@ class Nextion : Driver
     def set_display_sleep()
         import string
         isSleeping = 1
+        self.sendnx("sleep=1")
         tasmota.publish(mqtttopic + "/DISPLAYEVENT",string.format("{\"pageId\":\"%s\", \"event\":\"sleep\"}",_currentPageId))
     end
     def set_display_wakeup()
@@ -677,6 +678,7 @@ class Nextion : Driver
         log("NXP: Initializing Driver")
         self.ser = serial(17, 16, 115200, serial.SERIAL_8N1)
         self.flash_mode = 0
+        self.sendnx("thup=1")
         tasmota.add_cron("*/15 * * * * *", /-> self.every_15_s(), "every_15_s")
         self.change_page("1")     
         tasmota.publish(mqtttopic + "/DISPLAYEVENT",string.format("{\"pageId\":\"%s\", \"event\":\"wakeup\"}",_currentPageId))
