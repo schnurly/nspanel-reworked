@@ -48,6 +48,13 @@ Allows to change the brightness,timeout settings, and shows system informations
 ## Video
 [Demo](https://youtu.be/geTI_2iE--Y)
 
+## Pictures
+![architecture-overview](docs/overview.png)
+
+![architecture-overview](docs/NSPanel.png)
+
+![architecture-overview](docs/config.png)
+
 ## Tasmota Driver
 used driver: ./tasmota/nspanel_logic.be
 
