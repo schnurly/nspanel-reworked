@@ -1,9 +1,8 @@
 # Nextion Berry Driver
 
-GenerateWidgetJson.py
+- configure your panel with the GenerateWidgetJson.py
+- copy the generated json to the widget.be 
+- copy autoexec.be nspanel_logic.be and widget.be to the tasmota device
 
-Mapping of pages is defined here, and generate a json map for the widget variable in the nspanel_logic.be
+the autoexec.be calls the widget.be and then loads the nspanel_logic.be "tasmota driver"
 
-
-Variable widgetDefinition is direct mapping to the the hmi defined pages elements, etc..
-Variable widget is the instance abstraction of the widgetDefinition
