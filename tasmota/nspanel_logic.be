@@ -534,7 +534,8 @@ class Nextion : Driver
                                         self.set_display_wakeup()
                                      end 
                                 end 
-                                
+                            elif(msg[0] == 0x68)    
+                                self.set_display_wakeup()
                             elif (msg[0] == 0x55 && msg[1] == 0xbb)  #CustomCommand                           
                                 if msg[2] == 0x02  # wakup
                                     self.set_display_wakeup()
