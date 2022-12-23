@@ -532,6 +532,7 @@ class Nextion : Driver
                                 else
                                     if msg[3] == 0x00 # button released                                     
                                         self.set_display_wakeup()
+                                        self.init_current_page()
                                      end 
                                 end 
                             elif(msg[0] == 0x68)    
